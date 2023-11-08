@@ -2,38 +2,60 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "<img src=./images/pretest/Q1/Q1.png></img>",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "<img src=./images/pretest/Q1/q1_op1.png></img>",
+        "b": "<img src=./images/pretest/Q1/q1_op2.png></img>",
+        "c": "<img src=./images/pretest/Q1/q1_op3.png></img>",
+        "d": "<img src=./images/pretest/Q1/q1_op4.png></img>"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
-      },
-      "correctAnswer": "a",
-      "difficulty": "beginner"
-    },
-    {
-      "question": "This is a Sample Question 2?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
-      },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "explanations": "<img src=./images/pretest/Q1/exp.png></img>"
       },
       "correctAnswer": "c",
-      "difficulty": "beginner"
+      "difficulty": "Intermediate"
+    },
+    {
+      "question": "<img src=./images/pretest/Q2/Q2.png>",
+      "answers": {
+        "a": "<img src=./images/pretest/Q2/q2_op1.png>",
+        "b": "<img src=./images/pretest/Q2/q2_op2.png>",
+        "c": "<img src=./images/pretest/Q2/q2_op3.png>",
+        "d": "<img src=./images/pretest/Q2/q2_op4.png>"
+      },
+      "explanations": {
+        "explanations": "<img src=./images/pretest/Q2/exp.png>"
+      },
+      "correctAnswer": "d",
+      "difficulty": "Intermediate"
+    },
+    {
+      "question": "<img src=./images/pretest/Q3/Q3.png>",
+      "answers": {
+        "a": "<img src=./images/pretest/Q3/q3_op1.png>",
+        "b": "<img src=./images/pretest/Q3/q3_op2.png>",
+        "c": "<img src=./images/pretest/Q3/q3_op3.png>",
+        "d": "<img src=./images/pretest/Q3/q3_op4.png>"
+      },
+      "explanations": {
+        "explanations": "<img src=./images/pretest/Q3/exp.png>"
+      },
+      "correctAnswer": "a",
+      "difficulty": "Beginner"
+    },
+    {
+      "question": "<img src=./images/pretest/Q4/Q4.png>",
+      "answers": {
+        "a": "<img src=./images/pretest/Q4/q4_op1.png>",
+        "b": "<img src=./images/pretest/Q4/q4_op2.png>",
+        "c": "<img src=./images/pretest/Q4/q4_op3.png>",
+        "d": "<img src=./images/pretest/Q4/q4_op4.png>"
+      },
+      "explanations": {
+        "explanations": "<img src=./images/pretest/Q4/exp.png>"
+      },
+      "correctAnswer": "c",
+      "difficulty": "Intermediate"
     }
   ]
 }
