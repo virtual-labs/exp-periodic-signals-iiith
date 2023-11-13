@@ -22,18 +22,213 @@
         </div>
         <div class="column">
             <div class="tab">
-                <button class="tablinks" onclick="openPart(event, 'FCR')", id="default">Fourier Series Reconstruction</button>
+				<button class="tablinks" onclick="openPart(event, 'FCC')", id="default">Fourier Series Coefficients</button>
+				<button class="tablinks" onclick="openPart(event, 'SCC')">Square Series Coefficients</button>
+                <button class="tablinks" onclick="openPart(event, 'FCR')">Fourier Series Reconstruction</button>
+				<button class="tablinks" onclick="openPart(event, 'SQS')">Square Series Reconstruction</button>
                 <button class="tablinks" onclick="openPart(event, 'CA')">Quasi-Periodic</button>
-				<!--<button class="tablinks" onclick="openPart(event, 'MVG')">Quiz 1</button>
-                <button class="tablinks" onclick="openPart(event, 'BLK1')">Quiz 2</button>-->
             </div>
         </div>
     </div>
 
+	<div id="FCC" class="tabcontent">
+		<section class="fre" id="fourierCoeff">
+			<div class="max-width">
+				<h2 class="title">Fourier Series Coefficients</h2>
+				<div class="columns is-centered">
+					<div class="v-collapsible-instruction-container v-instruction-container" style="margin-bottom: 5%; margin-top: 5%;">
+						<div class="v-collapsible is-size-5">Instructions</div>
+						<div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
+							<h3> To visualize how the number of fourier series coefficients considered can affect the signal: </h3>
+							<br>
+							<h3> <b> Follow these steps: </b> </h3>
+							<br>
+							<h3> 
+								<ol>
+									<li> Choose a signal from the drop-down menu </li>
+									<li> Enter any necessary parameter(s) </li>
+									<li> Click the "Plot" button to view the plot in the figure </li>
+								</ol>
+							</h3>
+							<br>
+							<h3> The "Parameter 1" and "Parameter 2" for the systems correspond to the following listed parameters: </h3>
+							<br>
+							<h3>
+								<table style="width:100%">
+									<tr>
+										<th>Signal</th>
+										<th>Parameter 1</th>
+										<th>Parameter 2</th>
+									</tr>
+									<tr>
+										<td>Sine</td>
+										<td>Frequency</td>
+										<td>Amplitude</td>
+									</tr>
+									<tr>
+										<td>Cosine</td>
+										<td>Frequency</td>
+										<td>Amplitude</td>
+									</tr>
+									<tr>
+										<td>Ramp</td>
+										<td>-</td>
+										<td>Amplitude</td>
+									</tr>
+									<tr>
+										<td>Pulse</td>
+										<td>-</td>
+										<td>Amplitude</td>
+									</tr>
+									<tr>
+										<td>Haar</td>
+										<td>Scale Parameter</td>
+										<td>Amplitude</td>
+									</tr>
+									<tr>
+										<td>Complex Exponential</td>
+										<td>Frequency</td>
+										<td>Amplitude</td>
+									</tr>
+								</table>
+							</h3>
+						</div>
+					</div>
+				</div>
+	
+				<div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start"
+				style="margin-top:-1.5%">
+				<div class="column is-4-desktop is-8-tablet is-6-mobile">
+					<div class="box-question">
+						<div class="box1">
+							<select id="dropDownSeries">
+							  <option value="1">Square Wave</option>
+							  <option value="2">Triangular Wave</option>
+							  <option value="3">Half-Wave Rectifier</option>
+							  <option value="4">Full-Wave Rectifier</option>
+							  <option value="5">Custom Wave</option>
+							</select>
+						</div>
+						<button class="button1" id="jsbutton1" role="button" onClick="series()">Check</button>
+					</div>
+				</div>
+	
+				<div class="column is-8-desktop is-4-tablet is-12-mobile">
+					<div class="box-question">
+						<div class="v-datalist-title">Observations</div>
+						<div id="observations1">
+							<div id='figure1'></div>
+							<div id='figure2'></div>
+							<div id='figure3'></div>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+		</section>
+	</div>
+
+	<div id="SCC" class="tabcontent">
+		<section class="fre" id="fourierCoeff">
+			<div class="max-width">
+				<h2 class="title">Square-Wave Series Coefficients</h2>
+				<div class="columns is-centered">
+					<div class="v-collapsible-instruction-container v-instruction-container" style="margin-bottom: 5%; margin-top: 5%;">
+						<div class="v-collapsible is-size-5">Instructions</div>
+						<div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
+							<h3> To visualize how the number of fourier series coefficients considered can affect the signal: </h3>
+							<br>
+							<h3> <b> Follow these steps: </b> </h3>
+							<br>
+							<h3> 
+								<ol>
+									<li> Choose a signal from the drop-down menu </li>
+									<li> Enter any necessary parameter(s) </li>
+									<li> Click the "Plot" button to view the plot in the figure </li>
+								</ol>
+							</h3>
+							<br>
+							<h3> The "Parameter 1" and "Parameter 2" for the systems correspond to the following listed parameters: </h3>
+							<br>
+							<h3>
+								<table style="width:100%">
+									<tr>
+										<th>Signal</th>
+										<th>Parameter 1</th>
+										<th>Parameter 2</th>
+									</tr>
+									<tr>
+										<td>Sine</td>
+										<td>Frequency</td>
+										<td>Amplitude</td>
+									</tr>
+									<tr>
+										<td>Cosine</td>
+										<td>Frequency</td>
+										<td>Amplitude</td>
+									</tr>
+									<tr>
+										<td>Ramp</td>
+										<td>-</td>
+										<td>Amplitude</td>
+									</tr>
+									<tr>
+										<td>Pulse</td>
+										<td>-</td>
+										<td>Amplitude</td>
+									</tr>
+									<tr>
+										<td>Haar</td>
+										<td>Scale Parameter</td>
+										<td>Amplitude</td>
+									</tr>
+									<tr>
+										<td>Complex Exponential</td>
+										<td>Frequency</td>
+										<td>Amplitude</td>
+									</tr>
+								</table>
+							</h3>
+						</div>
+					</div>
+				</div>
+	
+				<div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start"
+				style="margin-top:-1.5%">
+				<div class="column is-4-desktop is-8-tablet is-6-mobile">
+					<div class="box-question">
+						<div class="box1">
+							<select id="dropDownSqSeries">
+							  <option value="1">Square Wave</option>
+							  <option value="2">Triangular Wave</option>
+							  <option value="3">Half-Wave Rectifier</option>
+							  <option value="4">Full-Wave Rectifier</option>
+							  <option value="5">Custom Wave</option>
+							</select>
+						</div>
+						<button class="button1" id="jsbutton3" role="button" onClick="sqSeries()">Check</button>
+					</div>
+				</div>
+	
+				<div class="column is-8-desktop is-4-tablet is-12-mobile">
+					<div class="box-question">
+						<div class="v-datalist-title">Observations</div>
+						<div id="observations3">
+							<div id='figure5'></div>
+							<div id='figure6'></div>
+							<div id='figure7'></div>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+		</section>
+	</div>
+
 	<div id="FCR" class="tabcontent">
 		<section class="fre" id="fourier">
 			<div class="max-width">
-				<h2 class="title">Fourier Series</h2>
+				<h2 class="title">Fourier Series Reconstruction</h2>
 				<div class="columns is-centered">
 					<div class="v-collapsible-instruction-container v-instruction-container" style="margin-bottom: 5%; margin-top: 5%;">
 						<div class="v-collapsible is-size-5">Instructions</div>
@@ -103,19 +298,117 @@
 							<select id="dropDownFourier">
 							  <option value="1">Square Wave</option>
 							  <option value="2">Triangular Wave</option>
-							  <option value="3">Piece-wise Wave</option>
+							  <option value="3">Half-Wave Rectifier</option>
+							  <option value="4">Full-Wave Rectifier</option>
+							  <option value="5">Custom Wave</option>
 							</select>
 						</div>
 						<div class="slider"> Number of coefficients: &emsp; <input type="range" min="1" max="50" value="1" id="myRange"> </div>
-						<button class="button1" id="jsbutton1" role="button" onClick="fourier(1)">Check</button>
+						<button class="button1" id="jsbutton2" role="button" onClick="fourier(1)">Check</button>
 					</div>
 				</div>
 	
 				<div class="column is-8-desktop is-4-tablet is-12-mobile">
 					<div class="box-question">
 						<div class="v-datalist-title">Observations</div>
-						<div id="observations1">
-							<div id='figure1'></div>
+						<div id="observations2">
+							<div id='figure4'></div>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+		</section>
+	</div>
+
+	<div id="SQS" class="tabcontent">
+		<section class="fre" id="square">
+			<div class="max-width">
+				<h2 class="title">Square-Wave Series Reconstruction</h2>
+				<div class="columns is-centered">
+					<div class="v-collapsible-instruction-container v-instruction-container" style="margin-bottom: 5%; margin-top: 5%;">
+						<div class="v-collapsible is-size-5">Instructions</div>
+						<div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
+							<h3> To visualize how the number of fourier series coefficients considered can affect the signal: </h3>
+							<br>
+							<h3> <b> Follow these steps: </b> </h3>
+							<br>
+							<h3> 
+								<ol>
+									<li> Choose a signal from the drop-down menu </li>
+									<li> Enter any necessary parameter(s) </li>
+									<li> Click the "Plot" button to view the plot in the figure </li>
+								</ol>
+							</h3>
+							<br>
+							<h3> The "Parameter 1" and "Parameter 2" for the systems correspond to the following listed parameters: </h3>
+							<br>
+							<h3>
+								<table style="width:100%">
+									<tr>
+										<th>Signal</th>
+										<th>Parameter 1</th>
+										<th>Parameter 2</th>
+									</tr>
+									<tr>
+										<td>Sine</td>
+										<td>Frequency</td>
+										<td>Amplitude</td>
+									</tr>
+									<tr>
+										<td>Cosine</td>
+										<td>Frequency</td>
+										<td>Amplitude</td>
+									</tr>
+									<tr>
+										<td>Ramp</td>
+										<td>-</td>
+										<td>Amplitude</td>
+									</tr>
+									<tr>
+										<td>Pulse</td>
+										<td>-</td>
+										<td>Amplitude</td>
+									</tr>
+									<tr>
+										<td>Haar</td>
+										<td>Scale Parameter</td>
+										<td>Amplitude</td>
+									</tr>
+									<tr>
+										<td>Complex Exponential</td>
+										<td>Frequency</td>
+										<td>Amplitude</td>
+									</tr>
+								</table>
+							</h3>
+						</div>
+					</div>
+				</div>
+	
+				<div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start"
+				style="margin-top:-1.5%">
+				<div class="column is-4-desktop is-8-tablet is-6-mobile">
+					<div class="box-question">
+						<div class="box1">
+							<select id="dropDownSquare">
+							  <option value="1">Square Wave</option>
+							  <option value="2">Triangular Wave</option>
+							  <option value="3">Half-Wave Rectifier</option>
+							  <option value="4">Full-Wave Rectifier</option>
+							  <option value="5">Custom Wave</option>
+							</select>
+						</div>
+						<div class="slider"> Number of coefficients: &emsp; <input type="range" min="1" max="50" value="1" id="sqSlider"> </div>
+						<button class="button1" id="jsbutton4" role="button" onClick="quant(1)">Check</button>
+					</div>
+				</div>
+	
+				<div class="column is-8-desktop is-4-tablet is-12-mobile">
+					<div class="box-question">
+						<div class="v-datalist-title">Observations</div>
+						<div id="observations4">
+							<div id='figure8'></div>
 						</div>
 					</div>
 				</div>
@@ -125,7 +418,7 @@
 	</div>
 
 	<div id="CA" class="tabcontent">
-		<section class="fre" id="system">
+		<section class="fre" id="quasi">
 			<div class="max-width">
 				<h2 class="title">Visualize Quasi-Periodic Signals</h2>
 				<div class="columns is-centered">
@@ -194,162 +487,35 @@
 				<div class="column is-4-desktop is-8-tablet is-6-mobile">
 					<div class="box-question">
 						<div class="box1">
-							<select id="dropDownFourier1">
+							<select id="dropDownQuasi">
 							  <option value="1">ECG</option>
 							  <option value="2">Double Pendulum</option>
 							  <option value="3">Chirp Signal</option>
 							</select>
 						</div>
-						<button class="button1" id="jsbutton2" role="button" onClick="quasi()">Check</button>
+						<button class="button1" id="jsbutton5" role="button" onClick="quasi()">Check</button>
+						<button class="button1" id="stop" role="button" onClick="stopPendulum()">Stop</button>
 					</div>
 				</div>
 	
 				<div class="column is-8-desktop is-4-tablet is-12-mobile">
 					<div class="box-question">
 						<div class="v-datalist-title">Observations</div>
-						<div id="observations2">
+						<div id="observations5">
 							<canvas id="kanvass" width="600" height="600" style="border: 1px solid black; margin-top: 2%;"></canvas>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</section>
-	</div>
-
-	<div id="MVG" class="tabcontent">
-		<section class="fre" id="average">
-			<div class="max-width">
-				<h2 class="title">Choose the system which cannot be used</h2>
-				<div class="columns is-centered">
-					<div class="v-collapsible-instruction-container v-instruction-container">
-						<div class="v-collapsible is-size-5">Instructions</div>
-						<div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
-							<h3> This section is designed to assess comprehension. The input signal consists of a sum of two sinusoids, and the output of an unknown linear time-invariant (LTI) system is provided. The objective is to determine which filter <b>cannot</b> be used to identify the system. </h3>
-							<br>
-							<h3> <b> To check your answer, follow these steps: </b> </h3>
-							<br>
-							<h3>
-								<ol> 
-									<li> Choose a filter from the drop-down menu in the central box </li>
-									<li> Click on the "Check" button to verify your answer </li>
-								</ol>
-							</h3>
-							<br>
-							<h3> <b> The Observations tab located at the bottom displays comments on whether the selected system is the correct choice. </b> </h3>
+							<div id='figure9'></div>
 						</div>
 					</div>
 				</div>
 
-				<div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start"
-			style="margin-top:-1.5%">
-			<div class="column is-6-desktop is-6-tablet is-10-mobile">
-				<div class="box-question">
-					<div id='figure6'></div>
-				</div>
-			</div>
-
-			<div class="column is-3-desktop is-4-tablet is-10-mobile">
-				<div class="box-question">
-					<div class="box1">
-						<select id="sig-names3">
-						  <option value="1">Low Pass</option>
-						  <option value="2">High Pass</option>
-						  <option value="3">Band Pass</option>
-						  <option value="4">Band Stop</option>
-						</select>
-					</div>
-					<button class="button1" id="jsbutton9" role="button" onClick="mavg()">Check</button>
-				</div>
-			</div>
-
-			<div class="column is-3-desktop is-6-tablet is-5-mobile">
-				<div class="box-question">
-					<div class="v-datalist-title">Output</div>
-					<div id="observations1">
-						<div id='figure7'></div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="v-datalist-container components-list" style="margin-top: 10%; margin-bottom: 20%;">
-			<div class="v-datalist-title">Observations</div>
-			<div class="v-datalist-row">
-				<div id="result1"></div>
-			</div>
-		</div>
-
-		</section>
-	</div>
-
-	<div id="BLK1" class="tabcontent">
-		<section class="fre" id="black">
-			<div class="max-width">
-				<h2 class="title">Choose the system and Parameter</h2>
-				<div class="columns is-centered">
-					<div class="v-collapsible-instruction-container v-instruction-container">
-						<div class="v-collapsible is-size-5">Instructions</div>
-						<div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
-							<h3 >This section is designed to assess understanding, provide feedback, and run simulations on randomly generated inputs. An input signal and the output of an unknown LTI system are provided. The objective is to identify a system and provide parameters for the system that could possibly convert the given input to the given output. </h3>
-							<br>
-							<h3><b> To check your answer and receive feedback, follow these steps: </b></h3>
-							<br>
-							<h3>
-							<ol>
-								<li> Choose a filter from the drop-down menu in the central box </li>
-								<li> Fill in the required parameter(s) </li>
-								<li> Click on the "Check" button to verify your answer </li>
-							</ol>
-							</h3>
-							<br>
-							<h3 >Please note that <b>multiple solutions</b> may be possible here </h3>
-							<br>
-							<h3><b> The Observations tab located at the bottom displays comments on whether your designed system works as required. </b></h3>
+				<div class="column is-8-desktop is-4-tablet is-12-mobile">
+					<div class="box-question">
+						<div id="observations5">
+							<div id='figure9'></div>
 						</div>
 					</div>
 				</div>
-
-				<div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start"
-			style="margin-top:-1.5%">
-			<div class="column is-4-desktop is-6-tablet is-10-mobile">
-				<div class="box-question">
-					<div id='figure8' class="figureLast"></div>
-					<div class="fill1"> Parameter 1: &emsp; <input type=number id="cutoff3" value=0.3 step=0.5> </div>
-					<div class="fill2"> Parameter 2: &emsp; <input type=number id="cutoff4" value=0.5 step=0.5> </div>
-				</div>
 			</div>
-
-			<div class="column is-3-desktop is-4-tablet is-10-mobile">
-				<div class="box-question">
-					<div class="box1">
-						<select id="sig-names4">
-						  <option value="1">Low Pass</option>
-						  <option value="2">High Pass</option>
-						  <option value="3">Band Pass</option>
-						  <option value="4">Band Stop</option>
-						</select>
-					</div>
-					<button class="button1" id="jsbutton6" role="button" onClick="mavg1()">Check</button>
-				</div>
-			</div>
-
-			<div class="column is-3-desktop is-6-tablet is-5-mobile">
-				<div class="box-question">
-					<div class="v-datalist-title">Output</div>
-					<div id="observations1">
-						<div id='figure9'></div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="v-datalist-container components-list" style="margin-top: 10%; margin-bottom: 20%;">
-			<div class="v-datalist-title">Observations</div>
-			<div class="v-datalist-row">
-				<div id="result2"></div>
-			</div>
-		</div>
 
 		</section>
 	</div>
