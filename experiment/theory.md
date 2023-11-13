@@ -1,57 +1,66 @@
 
-# Theory #
-## Fourier transform ##
 
-The Fourier transform of a discrete-time signal $\textbf{x}[n]$ is given by 
+# Fourier series of periodic signals # 
 
-$$ X(\omega) = \sum_{n=-\infty}^{n=\infty} \textbf{x}[n] exp(-j \omega n).$$ 
+ Any periodic signal can be represented in terms of sine and cosines or their harmonics.  We can verify that any two signals in this set are orthogonal as discussed in experiment 1. 
+1) Fourier Series Analysis: Given periodic signal x(t) with time period T, find the Fourier coefficient 
+      
+      $$x(t) \rightarrow \{a_k, b_k\}$$
 
-This transform is a periodic function with period $2 \pi$, 
+2) Fourier Series Synthesis: Given Fourier series coefficients, reconstruct the periodic signal $x(t)$
 
-$$ X(\omega) = X(\omega + 2\pi) ~~\forall~~ \omega. $$
+Let $x(t)$ be a periodic signal with time period $(T=\frac{2 \pi}{\omega_0})$ and its Fourier Series coefficients are given as $\{a_k, b_k\}$, where
 
-Due to this periodicity, it is sufficient to specify the transform in an interval of length $2\pi$, such as $[-\pi, \pi]$ or $[0, 2\pi]$. 
+ $$a_k = \frac{2}{T} \int_{<T>} x(t) \cos (k \omega_0 t) dt~~~~~~~k=1,2,...,\infty$$ 
 
-The complex sinusoidal signals $exp(-j \omega n)$ form the building blocks for any arbitrary signal $\textbf{x}[n]$ for $\omega \in [-\pi, \pi]$. Recall that, due to periodic nature of frequency in discrete-time signals, frequencies close to $0$ or $2\pi$ are ‘low’ frequencies showing slow variation over time while frequencies close to $\pi$ are ‘high’ frequencies exhibiting high variation with time.  
+ $$b_k = \frac{2}{T} \int_{<T>} x(t) \sin (k \omega_0 t) dt~~~~~~~k=1,2,...,\infty$$ 
 
-## Frequency response of LTI system ##
-Discrete-time LTI systems can be characterised by their impulse response $\textbf{h}[n]$. An equivalent characterization is given by the Fourier transform of the impulse response, called the frequency response of the LTI system. This frequency response $H(\omega)$ is given by 
+ $$a_0 = \frac{1}{T} \int_{<T>} x(t)  dt~~~~~~~\text{(average value of signal in one period)}$$
+ 
 
-$$ H(\omega) = \sum_{n=-\infty}^{n=\infty} h[n] exp(-j \omega n). $$
+The signal $x(t)$ can be approximately/partially reconstructed using Fourier series coefficients $\{a_k,b_k\}$ where $ k = 0,1, .. ~R $
 
-The frequency response is a periodic function with period $2 \pi$. The frequency representation provides an alternate way of understanding LTI systems. We demonstrate this next by considering sinusoidal inputs to LTI systems. 
+   $$\hat{x}(t) = a_0 + \sum_{k=1}^{R} a_k \cos (2\pi k f_0 t) + \sum_{k=1}^{R} b_k \sin (2\pi k f_0 t)$$ 
 
-##  Eigenfunctions of LTI systems ##
-In time domain, the output $\textbf{y}[n]$ of an LTI system is given by convolution of the input signal $\textbf{x}[n]$ and the impulse response $\textbf{h}[n]$ of the system. Using convolution property of Fourier transform,
+Now the reconstruction error can be given as
 
-$$ Y(\omega) = X(\omega) H(\omega) $$
+   $$ e(t) = x(t) - \hat{x}(t) $$
 
-Specifically, when the input signal is a single-frequency complex sinusoid, the output of the system is also a complex sinusoid with same frequency as the input signal. Hence the complex sinusoid signals are eigenfunctions of an LTI system giving, 
+The set of signals $\{1, ~\cos (k \omega_0 t), ~\sin (k \omega_0 t)  \}_{k=0,1,..,\infty}$ forms a basis for space of periodic signals with time-period $T = \frac{1}{F_0} = \frac{2\pi}{\omega_0}$
 
-$$ exp(-j \omega_{0} n) \rightarrow H(\omega_{0}) exp(-j \omega_{0} n).  $$
 
-The frequency response $H(\omega)$ captures the behaviour of the system in frequency domain. Thus, LTI systems act as frequency selective systems. 
+ $${x}(t) = a_0 + \sum_{k=1}^{\infty} a_k \cos (k \omega_0 t) + \sum_{k=1}^{\infty} b_k \sin (2\pi k \omega_0 t)$$
 
-## Magnitude and phase response ##
+ For real-valued signals $x(t)$, the coefficients $\{a_k, b_k\}$ are real valued 
+ 
+ ## Example: ##
+ Compute Fourier series coefficients of the square wave below: 
+ <p align="center"><img src=".\images\squarewave.png" alt="drawing" width="300"/>
 
-The frequency response is in general a complex-valued function. Alternately, it can be expressed using the magnitude and phase of the complex values. The magnitude response is $|H(\omega)|$ and the phase response is $\angle H(\omega)$. For a complex sinusoid with frequency $\omega_{0}$ we have, 
 
-$$ exp(-j \omega_{0} n) \rightarrow |H(\omega_{0})| exp(-j [\omega_{0} n + \angle H(\omega)]).  $$
 
-The output sinusoid has frequency $\omega_{0}$, magnitude $|H(\omega_0)|$, and a phase change of $\angle H(\omega_0)$. 
+$$ x(t) = \left\{\begin{matrix}
+3 \quad 0 < t < 5\\ 
+-3 \quad 5 < t < 10
+\end{matrix}\right.$$
 
-## Frequency response examples ##
+Solution: 
 
-Frequency response of some standard systems: 
+$a_0 = \frac{1}{T} \int_{0}^{T} x(t)  dt = ~0$
 
-* Delay: $H(\omega) = exp(-j \omega \Delta)$ 
+$a_k = \frac{2}{T} \int_{\frac{-T}{2}} ^ {\frac{T}{2}} x(t) \cos (k \omega_0 t) dt \\ ~~~~~=\frac{2}{10} \int_{-5} ^ {5} x(t) \cos (k \omega_0 t) dt \\  ~~~~~=\frac{1}{5} [\int_{-5} ^ {0} x(t) \cos (k \omega_0 t) dt +  \int_{0} ^ {5} x(t) \cos (k \omega_0 t) dt] \\ ~~~~~=\frac{1}{5} [-3 \int_{-5} ^ {0}  \cos (k \omega_0 t) dt + 3 \int_{0} ^ {5} \cos (k \omega_0 t) dt] \\ ~~~~~= 0$
 
-* Scaling: $H(\omega) = \alpha $ 
+$a_k = 0 ~\forall~~ k = 1, 2 ...\infty $
 
-* Differentiator: $H(\omega) = exp(-j \omega \Delta) - exp(-j \omega (\Delta-1)) $ 
+since $x(t)$ is an odd signal, we get $a_k = 0$, which shows that there are no cosine terms in the Fourier representation of $x(t)$.
 
-* Accumulator: $H(\omega) = exp(j \omega \Delta) + exp(j \omega (\Delta+1)) $ 
+$b_k = \frac{2}{T} \int_{\frac{-T}{2}} ^ {\frac{T}{2}} x(t) \sin (k \omega_0 t) dt ~~~~~\text{where} ~~\omega_0 = \frac{2 \pi} {10}   \\ ~~~~~=\frac{2}{10} \int_{-5} ^ {5} x(t) \sin (k \omega_0 t) dt \\  ~~~~~=\frac{1}{5} [\int_{-5} ^ {0} x(t) \sin (k \omega_0 t) dt +  \int_{0} ^ {5} x(t) \sin (k \omega_0 t) dt] \\ ~~~~~=\frac{1}{5} [-3 \int_{-5} ^ {0}  \sin (k \omega_0 t) dt + 3 \int_{0} ^ {5} \sin (k \omega_0 t) dt]\\ ~~~~~= \frac{3}{k \pi} [1 - 2 \cos (k \pi) + \cos (2k \pi)]\\ ~~~~~= \frac{6}{k \pi} [1 - \cos (k \pi)] \\ ~~~~~= \frac{6}{k \pi} [1 - (-1)^k]$
 
-* Identity: $H(\omega) $ 
+$ b_k = \left\{\begin{matrix}
+\frac{12}{k\pi} \quad k ~\text{is odd}\\ 
+0 \quad k ~\text{is even}
+\end{matrix}\right.$
 
-Due to their frequency selective nature, LTI systems can be designed to allow or prohibit desired frequencies. Thus, LTI systems can act as filters of various types. Some commonly used filters are – low pass, high pass, band pass, and band stop filters. 
+Now $x(t)$ can be represented as
+
+$x(t) = \sum_{k=2r -1}^{r = 1,..\infty} \frac{12}{k\pi} \sin(k \omega_0 t)$
