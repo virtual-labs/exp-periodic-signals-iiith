@@ -1,0 +1,9 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "Find Fourier seires coefficients for x(t) = \\cos^2(t), use T = \\pi "
+      }
+    
+  ]
+}
