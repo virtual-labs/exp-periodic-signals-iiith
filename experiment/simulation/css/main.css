@@ -1,13 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
 
-
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
 }
-html{
+html {
     scroll-behavior: smooth;
 }
 
@@ -20,542 +19,659 @@ html{
 ::-webkit-scrollbar-thumb {
     background: #888;
 }
-
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
 /* ---------------------------------- Laptops and Desktops ------------------------- */
 
-@media (min-width: 1200px){
+@media (min-width: 1200px) {
 
-.max-width{
+.max-width {
     max-width: 1500px;
     padding: 0 80px;
-    margin: auto
+    margin: auto;
 }
 
-section .title{
-  position: relative;
-  text-align: center;
-  color: #000000;
-  font-size: 40px;
-  font-weight: 500;
-  margin-top: 5%;
-  font-family: 'Ubuntu', sans-serif;
+section .title {
+    position: relative;
+    text-align: center;
+    color: #000000;
+    font-size: 40px;
+    font-weight: 500;
+    margin-top: 1%;
+    font-family: 'Ubuntu', sans-serif;
 }
 
-.fre{
-  display: flex;
-  color: #000000; /* Color of Name, and moving text in first page*/
-  background-size: cover;
-  background-attachment: fixed;
-  font-family: 'Ubuntu', sans-serif;
+.fre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000000; /* Color of Name, and moving text in first page */
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .box {
-  position: relative;
-  margin-top: 20%;
-  margin-left: 25%;
-  transform: translate(-50%, -50%);
-  width: 90%;
+    position: relative;
+    margin-top: 5%;
+    width: 50%;
 }
 
 .box select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 0%;
-  border: 1px solid #98CB3B;
-  border-radius: 5px;
-  background-color: #FFFFFF;
-  transition: border-color 0.3s ease;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #98CB3B;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    transition: border-color 0.3s ease;
 }
 
 .box::before {
-  content: "\f13a";
-  font-family: 'Ubuntu', sans-serif;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 20%;
-  height: 100%;
-  text-align: center;
-  font-size: 28px;
-  line-height: 45px;
-  color: rgba(255, 255, 255, 0.5);
-  background-color: rgba(255, 255, 255, 0.1);
-  pointer-events: none;
+    content: "\f13a";
+    font-family: 'Ubuntu', sans-serif;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
 }
 
 .box:hover::before {
-  color: rgba(255, 255, 255, 0.6);
-  background-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .box select option {
-  padding: 30px;
+    padding: 30px;
 }
 
-.figureLast{
-  margin-left: -50%;
+.figureLast {
+    margin-left: -50%;
 }
 
 .slider {
-  width: 60%;
-  height: 40px;
-  border-radius: 5px;
-  font-size: 24px;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-  margin-top: 20%;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 24px;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    margin-top: 10px;
+}
+
+.buttonTotal {
+    display: block;
+    width: 50%;
+    height: auto;
+    font-size: 100%;
+    position: relative;
+    padding: 10px 20px;
+    background-color: #98CB3B;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttonTotal:hover {
+    background-color: #2C9AD1;
+    transform: scale(1.05);
 }
 
 }
 
 /* ----------------------------------------- Big Tabs ------------------------------------------ */
 
-@media (max-width: 1200px) and (min-width: 768px){
+@media (max-width: 1200px) and (min-width: 768px) {
 
-
-.max-width{
+.max-width {
     max-width: 1300px;
     padding: 0 80px;
-    margin: auto
+    margin: auto;
 }
-  
-section .title{
-  position: relative;
-  text-align: center;
-  color: #000000;
-  font-size: 40px;
-  font-weight: 500;
-  margin-top: 10%;
-  width: 100%;
-  font-family: 'Ubuntu', sans-serif;
+
+section .title {
+    position: relative;
+    text-align: center;
+    color: #000000;
+    font-size: 40px;
+    font-weight: 500;
+    margin-top: 10%;
+    width: 100%;
+    font-family: 'Ubuntu', sans-serif;
 }
-  
-.fre{
-  display: flex;
-  color: #000000; /* Color of Name, and moving text in first page*/
-  background-size: cover;
-  background-attachment: fixed;
-  font-family: 'Ubuntu', sans-serif;
+
+.fre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000000; /* Color of Name, and moving text in first page */
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Ubuntu', sans-serif;
 }
-  
+
 .box {
     position: relative;
-    margin-top: 20%;
-    margin-left: 55%;
-    transform: translate(-50%, -50%);
-    width: 100%;
+    margin-top: 5%;
+    width: 70%;
 }
-  
 
 .box select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 0%;
-  border: 1px solid #98CB3B;
-  border-radius: 5px;
-  background-color: #FFFFFF;
-  transition: border-color 0.3s ease;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #98CB3B;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    transition: border-color 0.3s ease;
 }
 
 .box::before {
-  content: "\f13a";
-  font-family: 'Ubuntu', sans-serif;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 20%;
-  height: 100%;
-  text-align: center;
-  font-size: 28px;
-  line-height: 45px;
-  color: rgba(255, 255, 255, 0.5);
-  background-color: rgba(255, 255, 255, 0.1);
-  pointer-events: none;
+    content: "\f13a";
+    font-family: 'Ubuntu', sans-serif;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
 }
 
 .box:hover::before {
-  color: rgba(255, 255, 255, 0.6);
-  background-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .box select option {
-  padding: 30px;
+    padding: 30px;
 }
 
-.figureLast{
+.figureLast {
     margin-left: -30%;
 }
 
 .slider {
-    width: 150%;
+    width: 100%;
     height: 15px;
     border-radius: 5px;
     outline: none;
     opacity: 0.7;
-    margin-top: 20%;
+    margin-top: 10px;
 }
-  
+
+.buttonTotal {
+    display: block;
+    width: 70%;
+    height: auto;
+    font-size: 100%;
+    position: relative;
+    padding: 10px 20px;
+    background-color: #98CB3B;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttonTotal:hover {
+    background-color: #2C9AD1;
+    transform: scale(1.05);
+}
+
 }
 
 /* ----------------------------------------- Small Tabs ------------------------------------------ */
 
-@media (max-width: 768px) and (min-width: 720px){
+@media (max-width: 768px) and (min-width: 720px) {
 
-  
-.max-width{
-  max-width: 770px;
-  padding: 0 80px;
-  margin: auto
+.max-width {
+    max-width: 770px;
+    padding: 0 80px;
+    margin: auto;
 }
 
-section .title{
-position: relative;
-text-align: center;
-color: #000000;
-font-size: 40px;
-font-weight: 500;
-margin-top: 10%;
-font-family: 'Ubuntu', sans-serif;
+section .title {
+    position: relative;
+    text-align: center;
+    color: #000000;
+    font-size: 40px;
+    font-weight: 500;
+    margin-top: 10%;
+    font-family: 'Ubuntu', sans-serif;
 }
 
-.fre{
-display: flex;
-color: #000000; /* Color of Name, and moving text in first page*/
-background-size: cover;
-background-attachment: fixed;
-font-family: 'Ubuntu', sans-serif;
+.fre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000000; /* Color of Name, and moving text in first page */
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .box {
-  position: relative;
-  margin-top: 20%;
-  margin-left: 55%;
-  margin-bottom: -30%;
-  transform: translate(-50%, -50%);
-  width: 130%;
+    position: relative;
+    margin-top: 5%;
+    width: 90%;
 }
 
 .box select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 0%;
-  border: 1px solid #98CB3B;
-  border-radius: 5px;
-  background-color: #FFFFFF;
-  transition: border-color 0.3s ease;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #98CB3B;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    transition: border-color 0.3s ease;
 }
 
 .box::before {
-  content: "\f13a";
-  font-family: 'Ubuntu', sans-serif;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 20%;
-  height: 100%;
-  text-align: center;
-  font-size: 28px;
-  line-height: 45px;
-  color: rgba(255, 255, 255, 0.5);
-  background-color: rgba(255, 255, 255, 0.1);
-  pointer-events: none;
+    content: "\f13a";
+    font-family: 'Ubuntu', sans-serif;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
 }
 
 .box:hover::before {
-  color: rgba(255, 255, 255, 0.6);
-  background-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .box select option {
-  padding: 30px;
+    padding: 30px;
 }
 
-.figureLast{
-  margin-left: 0%;
+.figureLast {
+    margin-left: 0%;
 }
 
 .slider {
-  width: 150%;
-  height: 15px;
-  border-radius: 5px;
-  outline: none;
-  opacity: 0.7;
-  margin-top: 40%;
-  margin-bottom: -10%;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.7;
+    margin-top: 10px;
+}
+
+.buttonTotal {
+    display: block;
+    width: 90%;
+    height: auto;
+    font-size: 100%;
+    position: relative;
+    padding: 10px 20px;
+    background-color: #98CB3B;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttonTotal:hover {
+    background-color: #2C9AD1;
+    transform: scale(1.05);
 }
 
 }
 
 /* ----------------------------------------------- Large Phones ---------------------------------- */
 
-@media (max-width: 720px) and (min-width: 420px){
+@media (max-width: 720px) and (min-width: 420px) {
 
-  
-.max-width{
+.max-width {
     max-width: 740px;
-    padding: 0 80px;
-    margin: auto
+    padding: 0 20px;
+    margin: auto;
 }
-  
-section .title{
-  position: relative;
-  text-align: center;
-  color: #000000;
-  font-size: 40px;
-  font-weight: 500;
-  margin-top: 10%;
-  width: 80%;
-  font-family: 'Ubuntu', sans-serif;
+
+section .title {
+    position: relative;
+    text-align: center;
+    color: #000000;
+    font-size: 30px;
+    font-weight: 500;
+    margin-top: 5%;
+    width: 100%;
+    font-family: 'Ubuntu', sans-serif;
 }
-  
-.fre{
-  display: flex;
-  color: #000000; /* Color of Name, and moving text in first page*/
-  background-size: cover;
-  background-attachment: fixed;
-  font-family: 'Ubuntu', sans-serif;
+
+.fre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000000; /* Color of Name, and moving text in first page */
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .box {
     position: relative;
-    margin-top: 40%;
-    margin-left: 55%;
-    margin-bottom: -30%;
-    transform: translate(-50%, -50%);
-    width: 130%;
+    margin-top: 5%;
+    width: 100%;
 }
-  
+
 .box select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 0%;
-  border: 1px solid #98CB3B;
-  border-radius: 5px;
-  background-color: #FFFFFF;
-  transition: border-color 0.3s ease;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #98CB3B;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    transition: border-color 0.3s ease;
 }
 
 .box::before {
-  content: "\f13a";
-  font-family: 'Ubuntu', sans-serif;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 20%;
-  height: 100%;
-  text-align: center;
-  font-size: 28px;
-  line-height: 45px;
-  color: rgba(255, 255, 255, 0.5);
-  background-color: rgba(255, 255, 255, 0.1);
-  pointer-events: none;
+    content: "\f13a";
+    font-family: 'Ubuntu', sans-serif;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
 }
 
 .box:hover::before {
-  color: rgba(255, 255, 255, 0.6);
-  background-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .box select option {
-  padding: 30px;
+    padding: 10px;
 }
 
-.figureLast{
+.figureLast {
     margin-left: 0%;
 }
 
 .slider {
-  width: 150%;
-  height: 15px;
-  border-radius: 5px;
-  outline: none;
-  opacity: 0.7;
-  margin-top: 40%;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.7;
+    margin-top: 10px;
+}
+
+.buttonTotal {
+    display: block;
+    width: 100%;
+    height: auto;
+    font-size: 100%;
+    position: relative;
+    padding: 10px 20px;
+    background-color: #98CB3B;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttonTotal:hover {
+    background-color: #2C9AD1;
+    transform: scale(1.05);
 }
 
 }
 
 /* ------------------------------------- Small Phones ------------------------------------ */
 
-@media (max-width: 420px){
+@media (max-width: 420px) {
 
-  
-.max-width{
+.max-width {
     max-width: 460px;
-    padding: 0 80px;
+    padding: 0 10px;
     margin: auto;
 }
 
-section .title{
-  position: relative;
-  text-align: center;
-  color: #000000;
-  font-size: 40px;
-  font-weight: 500;
-  margin-top: 10%;
-  width: 80%;
-  font-family: 'Ubuntu', sans-serif;
+section .title {
+    position: relative;
+    text-align: center;
+    color: #000000;
+    font-size: 25px;
+    font-weight: 500;
+    margin-top: 5%;
+    width: 100%;
+    font-family: 'Ubuntu', sans-serif;
 }
-  
-.fre{
-  display: flex;
-  color: #000000; /* Color of Name, and moving text in first page*/
-  background-size: cover;
-  background-attachment: fixed;
-  font-family: 'Ubuntu', sans-serif;
+
+.fre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000000; /* Color of Name, and moving text in first page */
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .box {
     position: relative;
-    margin-top: 60%;
-    margin-left: 52%;
-    margin-bottom: -30%;
-    transform: translate(-50%, -50%);
-    width: 130%;
+    margin-top: 5%;
+    width: 100%;
 }
-  
+
 .box select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 0%;
-  border: 1px solid #98CB3B;
-  border-radius: 5px;
-  background-color: #FFFFFF;
-  transition: border-color 0.3s ease;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #98CB3B;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    transition: border-color 0.3s ease;
 }
 
 .box::before {
-  content: "\f13a";
-  font-family: 'Ubuntu', sans-serif;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 20%;
-  height: 100%;
-  text-align: center;
-  font-size: 28px;
-  line-height: 45px;
-  color: rgba(255, 255, 255, 0.5);
-  background-color: rgba(255, 255, 255, 0.1);
-  pointer-events: none;
+    content: "\f13a";
+    font-family: 'Ubuntu', sans-serif;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
 }
 
 .box:hover::before {
-  color: rgba(255, 255, 255, 0.6);
-  background-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .box select option {
-  padding: 30px;
+    padding: 10px;
 }
 
-.figureLast{
+.figureLast {
     margin-left: 0%;
 }
 
 .slider {
-  width: 150%;
-  height: 15px;
-  border-radius: 5px;
-  outline: none;
-  opacity: 0.7;
-  margin-top: 40%;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.7;
+    margin-top: 10px;
 }
-  
-}
-
-/* ----------------------------------------- Plot Button -----------------------------------------------------*/
 
 .buttonTotal {
-  display: block;
-  width: 30%;
-  height: 20%;
-  font-size: 100%;
-  position: relative;
-  padding: 10px 20px;
-  background-color: #98CB3B;
-  color: #FFFFFF;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  margin-left: 0%;
-  margin-top: 40%;
+    display: block;
+    width: 100%;
+    height: auto;
+    font-size: 100%;
+    position: relative;
+    padding: 10px 20px;
+    background-color: #98CB3B;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .buttonTotal:hover {
-  background-color: #2C9AD1;
-  transform: scale(1.05);
+    background-color: #2C9AD1;
+    transform: scale(1.05);
+}
+
+#observations3 {
+    width: 100%;
+}
+
+#observations3 div {
+    width: 100%;
+}
+
 }
 
 /* ---------------------------------------------------- Tabs -------------------------------------------- */
 
 .tab {
-  overflow: hidden;
-  border: 1px solid #FFFFFF;
-  background-color: #FFFFFF;
+    overflow: hidden;
+    border: 1px solid #FFFFFF;
+    background-color: #FFFFFF;
 }
 
 /* Style the buttons inside the tab */
 .tab button {
-  background-color: inherit;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  font-size: 17px;
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
 }
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-  background-color: #ddd;
+    background-color: #ddd;
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
-  background-color: #ccc;
-  border-style: solid;
-  border-radius: 10px;
-  border-color: #98CB3B;
-  color: #176696;
+    background-color: #ccc;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: #98CB3B;
+    color: #176696;
 }
 
 /* Style the tab content */
 .tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
 }
 
 /* ------------------------------------------ Table ------------------------------------ */
 
-table,td,tr {
-        padding: 10%;
-        border: 3px solid black;
-        border-collapse: collapse;
+table, td, tr {
+    padding: 10%;
+    border: 3px solid black;
+    border-collapse: collapse;
 }
 
-th{
-  border: 3px solid black;
-  background-color: #AAA;
+th {
+    border: 3px solid black;
+    background-color: #AAA;
 }
 
 /* -------------------------------------- Area -------------------------------------------------- */
 
 #canvas {
-  border: 1px solid #000;
+    border: 1px solid #000;
 }

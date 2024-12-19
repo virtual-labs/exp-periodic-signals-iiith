@@ -1058,6 +1058,14 @@ function customCoeff()
 
 // ------------------------------------- Fourier Series of known signals - slider ----------------------------------------------------
 
+
+function callFourier() {
+    fourier(1);
+    // Set the slider value to 1
+    document.getElementById("myRange").value = 1;
+}
+
+
 function fourier(numCoeff)
 {
     var chosen = document.getElementById("dropDownFourier").value;
@@ -1754,6 +1762,12 @@ function quantize(value)
     }
 }
 
+function callQuant()
+{
+    quant(1);
+    document.getElementById("sqSlider").value = 1;
+}
+
 function quant(numCoeff)
 {
     var chosen = document.getElementById("dropDownSquare").value;
@@ -2284,40 +2298,42 @@ var trace2 = [];
 
 let theta1 = Math.PI / 4; // Initial angle of the first pendulum
 let theta2 = Math.PI / 8; // Initial angle of the second pendulum
+
+var heartRate = 0;
         
 let omega1 = 0; // Initial angular velocity of the first pendulum
 let omega2 = 0; // Initial angular velocity of the second pendulum
 
-function quasi()
-{
+
+function quasi() {
     var chosen = document.getElementById("dropDownQuasi").value;
     var choice = parseInt(chosen);
 
-    if(choice==1)
-    {
+    if (choice == 1) {
         ctx.clearRect(0, 0, kanvas.width, kanvas.height);
         const ecgData = generateECGSignal();
 
-      // Set up canvas drawing parameters
-      const canvasWidth = kanvas.width;
-      const canvasHeight = kanvas.height;
-      const signalAmplitude = canvasHeight / 4;
-      const signalOffset = canvasHeight / 2;
+        // Set up canvas drawing parameters
+        const canvasWidth = kanvas.width;
+        const canvasHeight = kanvas.height;
+        const signalAmplitude = canvasHeight / 4;
+        const signalOffset = canvasHeight / 2;
 
-      // Draw the ECG-like signal on the canvas
-      ctx.beginPath();
-      ctx.moveTo(0, ecgData[0] * signalAmplitude + signalOffset);
+        // Draw the ECG-like signal on the canvas
+        ctx.beginPath();
+        ctx.moveTo(0, ecgData[0] * signalAmplitude + signalOffset);
 
-      for (let i = 1; i < ecgData.length; i++) {
-        ctx.lineTo((i / ecgData.length) * canvasWidth, ecgData[i] * signalAmplitude + signalOffset);
-      }
+        for (let i = 1; i < ecgData.length; i++) {
+            ctx.lineTo((i / ecgData.length) * canvasWidth, ecgData[i] * signalAmplitude + signalOffset);
+        }
 
-      ctx.strokeStyle = 'blue';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    }
-    else if(choice==2)
-    {
+        ctx.strokeStyle = 'blue';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Store the ECG data for convolution
+        window.ecgData = ecgData;
+    } else if (choice == 2) {
         iterQuasi = 0;
         t1acc = [];
         t2acc = [];
@@ -2336,48 +2352,12 @@ function quasi()
         t2acc.push(theta2);
         intID = setInterval(updatePendulum, 1);
     }
-    else
-    {
-        ctx.clearRect(0, 0, kanvas.width, kanvas.height);
-        const duration = 5; // Duration of the signal in seconds
-        const sampleRate = 8000; // Samples per second
-        const numSamples = duration * sampleRate;
-
-        const frequencyStart = 1; // Initial frequency in Hz
-        const frequencyEnd = 15; // Final frequency in Hz
-
-        // Create a time array
-        const time = Array.from({ length: numSamples }, (_, i) => i / sampleRate);
-
-        // Create a linear chirp signal
-        const chirpData = time.map((t) => 
-        {
-            const frequency = frequencyStart + ((frequencyEnd - frequencyStart) * t) / duration;
-            return Math.sin(2 * Math.PI * frequency * t);
-        });
-
-        // Set up canvas drawing parameters
-        const canvasWidth = kanvas.width;
-        const canvasHeight = kanvas.height;
-
-        // Draw the linear chirp signal on the canvas
-        ctx.beginPath();
-        ctx.moveTo(0, (1 - chirpData[0]) * canvasHeight * 0.5);
-
-        for (let i = 1; i < chirpData.length; i++) 
-        {
-            ctx.lineTo((i / chirpData.length) * canvasWidth, (1 - chirpData[i]) * canvasHeight * 0.5);
-        }
-
-        ctx.strokeStyle = 'blue';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-    }
 }
 
 function generateECGSignal() {
     const data = [];
-    const heartRate = 60; // Heart rate in beats per minute
+    const heartRates = [60, 70, 80, 90, 100, 110, 120];
+    heartRate = heartRates[Math.floor(Math.random() * heartRates.length)]; // Random heart rate
     const duration = 10; // Duration of the signal in seconds
     const sampleRate = 1000; // Samples per second
     const numSamples = duration * sampleRate;
@@ -2386,103 +2366,166 @@ function generateECGSignal() {
     const time = Array.from({ length: numSamples }, (_, i) => i / sampleRate);
 
     // Generate a simplified ECG-like signal
-    for (let t of time) 
-    {
-        // Create a P wave
-        const pWave = 0.1 * Math.sin(2 * Math.PI * (1 / 0.6) * t);
+    const rrInterval = 60 / heartRate; // RR interval in seconds
+    const pWaveDuration = 0.1; // P wave duration in seconds
+    const qrsDuration = 0.08; // QRS complex duration in seconds
+    const tWaveDuration = 0.16; // T wave duration in seconds
 
-        // Create a QRS complex
-        const qrsComplex =
-            0.3 * Math.sin(2 * Math.PI * (1 / 0.4) * t) +
-            0.5 * Math.sin(2 * Math.PI * (1 / 0.1) * t);
+    for (let t of time) {
+        let signal = 0;
 
-        // Create a T wave
-        const tWave = 0.2 * Math.sin(2 * Math.PI * (1 / 0.7) * t);
+        // P wave
+        if (t % rrInterval < pWaveDuration) {
+            signal += 0.1 * Math.sin(2 * Math.PI * (1 / pWaveDuration) * (t % rrInterval));
+        }
 
-        // Combine the waveforms
-        const signal = pWave + qrsComplex + tWave;
+        // QRS complex
+        if (t % rrInterval >= pWaveDuration && t % rrInterval < pWaveDuration + qrsDuration) {
+            signal += 0.5 * Math.sin(2 * Math.PI * (1 / qrsDuration) * (t % rrInterval - pWaveDuration));
+        }
+
+        // T wave
+        if (t % rrInterval >= pWaveDuration + qrsDuration && t % rrInterval < pWaveDuration + qrsDuration + tWaveDuration) {
+            signal += 0.2 * Math.sin(2 * Math.PI * (1 / tWaveDuration) * (t % rrInterval - pWaveDuration - qrsDuration));
+        }
 
         data.push(signal);
     }
 
+    // Store the heart rate for checking the guess
+    window.heartRate = heartRate;
+
     return data;
 }
 
-const g = 9.81; // Acceleration due to gravity
-const length1 = 100; // Length of the first pendulum arm
-const length2 = 100; // Length of the second pendulum arm
+function performConvolution() {
+    const ecgData = window.ecgData;
+    const kernel = [1, -1]; // Simple derivative kernel for peak detection
+    const convolvedData = convolve(ecgData, kernel);
 
-const timeStep = 0.05; // Time step for simulation
-const traceLength = 100; // Number of points to trace the motion
+    // Plot the convolved data
+    var trace = {
+        x: Array.from({ length: convolvedData.length }, (_, i) => i / 1000), // Convert to seconds
+        y: convolvedData,
+        type: 'scatter',
+        mode: 'line'
+    };
 
-function drawPendulum(x1, y1, x2, y2) 
-{
-    ctx.clearRect(0, 0, kanvas.width, kanvas.height);
-    ctx.beginPath();
-    ctx.moveTo(kanvas.width / 2, kanvas.height / 2);
-    ctx.lineTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
+    var layout = {
+        title: 'Convolved ECG Signal',
+        showlegend: false,
+        xaxis: {
+            title: 'Time (s)'
+        },
+        yaxis: {
+            title: 'Amplitude'
+        }
+    };
 
-    // Draw trace
-    trace1.push({ x: x1, y: y1 });
-    trace2.push({ x: x2, y: y2 });
-    if (trace1.length > traceLength) 
-    {
-        trace1.shift();
-        trace2.shift();
+    var data = [trace];
+
+    var config = { responsive: true }
+
+    if (screen.width < 769) {
+        var update = {
+            width: 0.8 * screen.width,
+            height: 400
+        };
+    } else if (screen.width > 1600) {
+        var update = {
+            width: 0.55 * screen.width,
+            height: 400
+        };
+    } else {
+        var update = {
+            width: 500,
+            height: 500
+        };
     }
-    ctx.strokeStyle = "blue";
-    for (let i = 1; i < trace1.length; i++) 
-    {
-        ctx.beginPath();
-        ctx.moveTo(trace1[i - 1].x, trace1[i - 1].y);
-        ctx.lineTo(trace1[i].x, trace1[i].y);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(trace2[i - 1].x, trace2[i - 1].y);
-        ctx.lineTo(trace2[i].x, trace2[i].y);
-        ctx.stroke();
+
+    Plotly.newPlot('figure9', data, layout, config);
+    Plotly.relayout('figure9', update);
+
+    // Store the convolved data for peak detection
+    window.convolvedData = convolvedData;
+}
+
+function convolve(signal, kernel) {
+    const output = [];
+    const halfKernel = Math.floor(kernel.length / 2);
+
+    for (let i = 0; i < signal.length; i++) {
+        let sum = 0;
+        for (let j = 0; j < kernel.length; j++) {
+            const signalIndex = i + j - halfKernel;
+            if (signalIndex >= 0 && signalIndex < signal.length) {
+                sum += signal[signalIndex] * kernel[j];
+            }
+        }
+        output.push(sum);
+    }
+
+    return output;
+}
+
+function checkGuess() {
+    const userGuess = parseInt(document.getElementById("userGuess").value);
+    const convolvedData = window.convolvedData;
+
+    // Define a threshold to filter out insignificant peaks
+    const threshold = Math.max(...convolvedData) * 0.5;
+
+    const peaks = [];
+    for (let i = 1; i < convolvedData.length - 1; i++) {
+        if (convolvedData[i] > convolvedData[i - 1] && convolvedData[i] > convolvedData[i + 1] && convolvedData[i] > threshold) {
+            peaks.push(i);
+        }
+    }
+
+    if (peaks.length < 2) {
+        document.getElementById("result").innerHTML = `<h3>Not enough peaks detected to estimate heart rate.</h3>`;
+        return;
+    }
+
+    const peakIntervals = [];
+    for (let i = 1; i < peaks.length; i++) {
+        peakIntervals.push(peaks[i] - peaks[i - 1]);
+    }
+
+    const averageInterval = peakIntervals.reduce((a, b) => a + b, 0) / peakIntervals.length;
+    const averageIntervalInSeconds = averageInterval / 1000; // Convert to seconds
+    const heartRateCalculated = 60 / averageIntervalInSeconds; // Converts to bpm
+
+    console.log("Peaks:", peaks);
+    console.log("Peak Intervals:", peakIntervals);
+    console.log("Average Interval (ms):", averageInterval);
+    console.log("Average Interval (s):", averageIntervalInSeconds);
+    console.log("Calculated heart rate:", heartRateCalculated);
+
+    const tolerance = 5; // Allowable error in bpm
+    const resultDiv = document.getElementById("result");
+    if (Math.abs(userGuess - heartRate) <= tolerance) {
+        resultDiv.innerHTML = `<h3>Correct! The estimated heart rate is approximately ${Math.round(heartRate)} bpm.</h3>`;
+    } else {
+        resultDiv.innerHTML = `<h3>Incorrect. The estimated heart rate is approximately ${Math.round(heartRate)} bpm.</h3>`;
     }
 }
 
-function updatePendulum() {
-    // Equations of motion for double pendulum
-    if(iterQuasi>4200)
-    {
-        stopPendulum();
+function openECGTab(evt, tabName) {
+    var i, tabcontentECG, tablinks;
+    tabcontentECG = document.getElementsByClassName("tabcontentECG");
+    for (i = 0; i < tabcontentECG.length; i++) {
+        tabcontentECG[i].style.display = "none";
     }
-
-    iterQuasi++;
-    
-    const deltaTheta1 = omega1;
-    const deltaTheta2 = omega2;
-    const denom1 = (length1 * 2 / 3) * (1 + 2 * Math.sin(theta1 - theta2) ** 2);
-    const denom2 = (length2 * 2 / 3) * (1 + 2 * Math.sin(theta1 - theta2) ** 2);
-    const deltaOmega1 = (g * (Math.sin(theta2) * Math.cos(theta1 - theta2) - Math.sin(theta1)) - omega2 ** 2 * length2 * Math.sin(theta1 - theta2) - omega1 ** 2 * length1 * Math.sin(theta1 - theta2) * Math.cos(theta1 - theta2)) / denom1;
-    const deltaOmega2 = (g * (2 * Math.sin(theta1 - theta2) * Math.cos(theta1 - theta2) - Math.sin(theta2)) + omega1 ** 2 * length1 * (Math.sin(theta1 - theta2) * Math.cos(theta1 - theta2) - Math.sin(theta1)) + omega2 ** 2 * length2 * Math.sin(theta1 - theta2)) / denom2;
-    
-    theta1 += deltaTheta1 * timeStep;
-    theta2 += deltaTheta2 * timeStep;
-    omega1 += deltaOmega1 * timeStep;
-    omega2 += deltaOmega2 * timeStep;
-
-    TIME += timeStep/10;
-
-    t1acc.push(theta1);
-    t2acc.push(theta2);
-    toime.push(TIME);
-
-    const x1 = kanvas.width / 2 + length1 * Math.sin(theta1);
-    const y1 = kanvas.height / 2 + length1 * Math.cos(theta1);
-    const x2 = x1 + length2 * Math.sin(theta2);
-    const y2 = y1 + length2 * Math.cos(theta2);
-
-    drawPendulum(x1, y1, x2, y2);
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
 }
 
-function drawQuasiPendulum()
-{
+function drawQuasiPendulum() {
     var trace1 = {
         x: toime,
         y: t1acc,
@@ -2500,27 +2543,22 @@ function drawQuasiPendulum()
             title: 'theta1'
         }
     };
-      
+
     var data1 = [trace1];
 
-    var config = {responsive: true}
-    
-    if(screen.width < 769)
-    {
+    var config = { responsive: true }
+
+    if (screen.width < 769) {
         var update = {
-            width: 0.8*screen.width,
+            width: 0.8 * screen.width,
             height: 400
         };
-    }
-    else if(screen.width > 1600)
-    {
+    } else if (screen.width > 1600) {
         var update = {
-            width: 0.55*screen.width,
+            width: 0.55 * screen.width,
             height: 400
         };
-    }
-    else
-    {
+    } else {
         var update = {
             width: 500,
             height: 500
@@ -2533,25 +2571,22 @@ function drawQuasiPendulum()
 
 // -------------------------------- Toggle stop button ------------------------------------------------------------
 
-function stopPendulum()
-{
+function stopPendulum() {
     clearInterval(intID);
     drawQuasiPendulum();
     toggler('stop');
 }
 
-function toggler(divId) { 
+function toggler(divId) {
     var x = document.getElementById(divId);
     if (x.style.display === "none") {
         x.style.display = "block";
-    }
-    else
-    {
+    } else {
         x.style.display = "none";
     }
 }
 
-function stopVisible() { 
+function stopVisible() {
     toggler('stop');
 }
 
@@ -2561,17 +2596,17 @@ function makeArr(startValue, stopValue, cardinality) {
     var arr = [];
     var step = (stopValue - startValue) / (cardinality - 1);
     for (var i = 0; i < cardinality; i++) {
-      arr.push(startValue + (step * i));
+        arr.push(startValue + (step * i));
     }
     return arr;
 }
 
 // ------------------------------------------ On startup ----------------------------------------------------------
 
-function startup()
-{
+function startup() {
     stopVisible();
     document.getElementById("default").click();
+    document.getElementById("defaultECG").click();
 }
 
 window.onload = startup;
