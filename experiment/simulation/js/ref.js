@@ -409,42 +409,40 @@ function series()
     }
 }
 
-function squareCoeff() {  
+function squareCoeff()
+{  
     var num = 20;
     N = 1000;
     f = 1/(4*Math.PI);
     w0 = 2*Math.PI*f;
 
-    // Adjust the range to cover 3-4 cycles
-    var xValues = makeArr(0, 12*Math.PI, N);
-    var sigValues = makeArr(0, 0, N);
-    var kValues = makeArr(0, num, num+1);
+    var xValues = makeArr(0,4*Math.PI,N);
+    var sigValues = makeArr(0,0,N);
+    var kValues = makeArr(0,num,num+1);
 
     var a0 = 0;
-    var ak = makeArr(0, 0, num+1);
-    var bk = makeArr(0, 0, num+1);
+    var ak = makeArr(0,0,num+1);
+    var bk = makeArr(0,0,num+1);
 
     ak[0] = a0;
     
-    for(var k=1; k<=num; k++) {
-        if(k%2==1) {
+    for(var k=1; k<=num; k++)
+    {
+        if(k%2==1)
+        {
             bk[k] = 4/(Math.PI*k);
         }
     }
 
     var boxSignal = [];
-    for(var i=0; i<N; i++) {
-        if(i < N/6) {
+    for(var i=0; i<N; i++)
+    {
+        if(i<N/2)
+        {
             boxSignal.push(1);
-        } else if (i < N/3) {
-            boxSignal.push(-1);
-        } else if (i < N/2) {
-            boxSignal.push(1);
-        } else if (i < 2*N/3) {
-            boxSignal.push(-1);
-        } else if (i < 5*N/6) {
-            boxSignal.push(1);
-        } else {
+        }
+        else
+        {
             boxSignal.push(-1);
         }
     }
@@ -509,17 +507,22 @@ function squareCoeff() {
 
     var config = {responsive: true}
     
-    if(screen.width < 769) {
+    if(screen.width < 769)
+    {
         var update = {
             width: 0.8*screen.width,
             height: 400
         };
-    } else if(screen.width > 1600) {
+    }
+    else if(screen.width > 1600)
+    {
         var update = {
             width: 0.55*screen.width,
             height: 400
         };
-    } else {
+    }
+    else
+    {
         var update = {
             width: 500,
             height: 500
@@ -536,59 +539,60 @@ function squareCoeff() {
     Plotly.relayout('figure3', update);
 }
 
-
-function triangleCoeff() {    
+function triangleCoeff()
+{    
     var num = 20;
     N = 1000;
-    f = 1/2;
+    f = 1/(4*Math.PI);
     w0 = 2*Math.PI*f;
 
-    // Adjust the range to cover 1 cycle
-    var xValues = makeArr(0, 2, N);
-    var sigValues = makeArr(0, 0, N);
-    var kValues = makeArr(0, num, num+1);
+    var xValues = makeArr(0,4*Math.PI,N);
+    var sigValues = makeArr(0,0,N);
+    var kValues = makeArr(0,num,num+1);
 
     var a0 = 0;
-    var ak = makeArr(0, 0, num+1);
-    var bk = makeArr(0, 0, num+1);
+    var ak = makeArr(0,0,num+1);
+    var bk = makeArr(0,0,num+1);
 
     ak[0] = a0;
     
-    for(var k=1; k<=num; k++) {
-        if(k%2==1) {
+    for(var k=1; k<=num; k++)
+    {
+        if(k%2==1)
+        {
             var val = parseInt((k-1)/2);
-            if(val%2 == 1) {
+            if(val%2 == 1)
+            {
                 bk[k] =  -8/(Math.PI*Math.PI*k*k);
-            } else {
+            }
+            else
+            {
                 bk[k] = 8/(Math.PI*Math.PI*k*k);
             }
         }
     }
-
     var triangleSignal = [];
-    for(var i=0; i<N; i++) {
-        if(i<N/4) {
+    for(var i=0; i<N; i++)
+    {
+        if(i<N/4)
+        {
             triangleSignal.push(2*xValues[i]);
-        } else if(i<(3*N/4)) {
+        }
+        else if(i<(3*N/4))
+        {
             triangleSignal.push(2*(1-xValues[i]));
-        } else {
+        }
+        else
+        {
             triangleSignal.push(2*(xValues[i]-2));
         }
     }
 
-    // Concatenate the signal to cover 3-4 cycles
-    var extendedXValues = [];
-    var extendedTriangleSignal = [];
-    for (var j = 0; j < 4; j++) {
-        extendedXValues = extendedXValues.concat(xValues.map(x => x + j * 2));
-        extendedTriangleSignal = extendedTriangleSignal.concat(triangleSignal);
-    }
-
     var trace1 = {
-        x: extendedXValues,
-        y: extendedTriangleSignal,
+        x: xValues,
+        y: triangleSignal,
         type: 'scatter',
-        mode: 'lines'
+        mode: 'line'
     };
 
     var trace2 = {
@@ -644,17 +648,22 @@ function triangleCoeff() {
 
     var config = {responsive: true}
     
-    if(screen.width < 769) {
+    if(screen.width < 769)
+    {
         var update = {
             width: 0.8*screen.width,
             height: 400
         };
-    } else if(screen.width > 1600) {
+    }
+    else if(screen.width > 1600)
+    {
         var update = {
             width: 0.55*screen.width,
             height: 400
         };
-    } else {
+    }
+    else
+    {
         var update = {
             width: 500,
             height: 500
@@ -671,53 +680,53 @@ function triangleCoeff() {
     Plotly.relayout('figure3', update);
 }
 
-function halfwaveCoeff() {
+function halfwaveCoeff()
+{
     var num = 20;
     N = 1000;
-    f = 1/(2*Math.PI);
+    f = 1/(4*Math.PI);
     w0 = 2*Math.PI*f;
 
-    var xValues = makeArr(0, 2*Math.PI, N);
-    var sigValues = makeArr(0, 0, N);
-    var kValues = makeArr(0, num, num+1);
+    var xValues = makeArr(0,4*Math.PI,N);
+    var sigValues = makeArr(0,0,N);
+    var kValues = makeArr(0,num,num+1);
 
     var a0 = 0.318;
-    var ak = makeArr(0, 0, num+1);
-    var bk = makeArr(0, 0, num+1);
+    var ak = makeArr(0,0,num+1);
+    var bk = makeArr(0,0,num+1);
 
     ak[0] = a0;
     
-    for(var k=1; k<=num; k++) {
-        if(k==1) {
+    for(var k=1; k<=num; k++)
+    {
+        if(k==1)
+        {
             bk[k] = 0.5;
         }
-        if(k%2==0) {
+        if(k%2==0)
+        {
             ak[k] = 2/((1-(k*k))*(Math.PI));
         }
     }
 
     var mySignal = [];
-    for(var i=0; i<N; i++) {
-        if(i<N/2) {
+    for(var i=0; i<N; i++)
+    {
+        if(i<N/2)
+        {
             mySignal.push(Math.sin(xValues[i]));
-        } else {
+        }
+        else
+        {
             mySignal.push(0);
         }
     }
 
-    // Concatenate the signal to cover 3-4 cycles
-    var extendedXValues = [];
-    var extendedMySignal = [];
-    for (var j = 0; j < 4; j++) {
-        extendedXValues = extendedXValues.concat(xValues.map(x => x + j * 2 * Math.PI));
-        extendedMySignal = extendedMySignal.concat(mySignal);
-    }
-
     var trace1 = {
-        x: extendedXValues,
-        y: extendedMySignal,
+        x: xValues,
+        y: mySignal,
         type: 'scatter',
-        mode: 'lines'
+        mode: 'line'
     };
 
     var trace2 = {
@@ -773,17 +782,22 @@ function halfwaveCoeff() {
 
     var config = {responsive: true}
     
-    if(screen.width < 769) {
+    if(screen.width < 769)
+    {
         var update = {
             width: 0.8*screen.width,
             height: 400
         };
-    } else if(screen.width > 1600) {
+    }
+    else if(screen.width > 1600)
+    {
         var update = {
             width: 0.55*screen.width,
             height: 400
         };
-    } else {
+    }
+    else
+    {
         var update = {
             width: 500,
             height: 500
@@ -800,22 +814,25 @@ function halfwaveCoeff() {
     Plotly.relayout('figure3', update);
 }
 
-function fullwaveCoeff() {
+function fullwaveCoeff()
+{
     var num = 20;
     N = 1000;
-    f = 1/(2*Math.PI);
+    f = 1/(4*Math.PI);
     w0 = 2*Math.PI*f;
 
-    var xValues = makeArr(0, 2*Math.PI, N);
-    var sigValues = makeArr(0, 0, N);
-    var kValues = makeArr(0, num, num+1);
+    var xValues = makeArr(0,4*Math.PI,N);
+    var sigValues = makeArr(0,0,N);
+    var kValues = makeArr(0,num,num+1);
 
     var a0 = -0.65;
-    var ak = makeArr(0, 0, num+1);
-    var bk = makeArr(0, 0, num+1);
+    var ak = makeArr(0,0,num+1);
+    var bk = makeArr(0,0,num+1);
     
-    for(var k=0; k<=num; k++) {
-        if(k%2==0) {
+    for(var k=0; k<=num; k++)
+    {
+        if(k%2==0)
+        {
             ak[k] = 2/((1-(k*k))*(1.56));
         }
     }
@@ -823,27 +840,23 @@ function fullwaveCoeff() {
     ak[0] = ak[0] + a0;
 
     var mySignal = [];
-    for(var i=0; i<N; i++) {
-        if(i<N/2) {
+    for(var i=0; i<N; i++)
+    {
+        if(i<N/2)
+        {
             mySignal.push(Math.sin(xValues[i]));
-        } else {
+        }
+        else
+        {
             mySignal.push(-Math.sin(xValues[i]));
         }
     }
 
-    // Concatenate the signal to cover 3-4 cycles
-    var extendedXValues = [];
-    var extendedMySignal = [];
-    for (var j = 0; j < 4; j++) {
-        extendedXValues = extendedXValues.concat(xValues.map(x => x + j * 2 * Math.PI));
-        extendedMySignal = extendedMySignal.concat(mySignal);
-    }
-
     var trace1 = {
-        x: extendedXValues,
-        y: extendedMySignal,
+        x: xValues,
+        y: mySignal,
         type: 'scatter',
-        mode: 'lines'
+        mode: 'line'
     };
 
     var trace2 = {
@@ -899,17 +912,22 @@ function fullwaveCoeff() {
 
     var config = {responsive: true}
     
-    if(screen.width < 769) {
+    if(screen.width < 769)
+    {
         var update = {
             width: 0.8*screen.width,
             height: 400
         };
-    } else if(screen.width > 1600) {
+    }
+    else if(screen.width > 1600)
+    {
         var update = {
             width: 0.55*screen.width,
             height: 400
         };
-    } else {
+    }
+    else
+    {
         var update = {
             width: 500,
             height: 500
