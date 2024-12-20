@@ -2522,6 +2522,7 @@ function quasi() {
     document.getElementById("convolveButton").style.display = "none";
     document.getElementById("guessButton").style.display = "none";
     document.getElementById("ecgstuff").style.display = "none";
+    Plotly.purge("figure10");
     iterQuasi = 0;
     t1acc = [];
     t2acc = [];
