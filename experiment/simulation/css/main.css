@@ -242,7 +242,8 @@ section .title {
     border-radius: 5px;
     outline: none;
     opacity: 0.7;
-    margin-top: 10px;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 
 .buttonTotal {
@@ -360,7 +361,8 @@ section .title {
     border-radius: 5px;
     outline: none;
     opacity: 0.7;
-    margin-top: 10px;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 
 .buttonTotal {
