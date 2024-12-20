@@ -2531,20 +2531,40 @@ function savitzkyGolay(data, windowSize, polynomialOrder) {
 
 function performConvolution() {
     const ecgData = window.ecgData;
+    // const reverse_ecgData = ecgData.slice().reverse();
     const windowSize = 5; // Adjust window size as needed
     const polynomialOrder = 2; // Adjust polynomial order as needed
-    const smoothedData = savitzkyGolay(ecgData, windowSize, polynomialOrder);
+    // const smoothedData = savitzkyGolay(ecgData, windowSize, polynomialOrder);
+    const convolvedData = convolve(ecgData, ecgData);
 
     // Plot the smoothed data
+    // var trace = {
+        // x: Array.from({ length: smoothedData.length }, (_, i) => i / 1000), // Convert to seconds
+    //     y: smoothedData,
+    //     type: 'scatter',
+    //     mode: 'line'
+    // };
+
+    // var layout = {
+    //     title: 'Smoothed ECG Signal',
+    //     showlegend: false,
+    //     xaxis: {
+    //         title: 'Time (s)'
+    //     },
+    //     yaxis: {
+    //         title: 'Amplitude'
+    //     }
+    // };
+
     var trace = {
-        x: Array.from({ length: smoothedData.length }, (_, i) => i / 1000), // Convert to seconds
-        y: smoothedData,
+        x: Array.from({ length: convolvedData.length }, (_, i) => i / 1000), // Convert to seconds
+        y: convolvedData,
         type: 'scatter',
         mode: 'line'
-    };
+    }
 
     var layout = {
-        title: 'Smoothed ECG Signal',
+        title: 'Convolved Signal',
         showlegend: false,
         xaxis: {
             title: 'Time (s)'
@@ -2561,7 +2581,7 @@ function performConvolution() {
     Plotly.newPlot('figure10', data, layout, config);
 
     // Store the smoothed data for peak detection
-    window.convolvedData = smoothedData;
+    window.convolvedData = convolvedData;
 }
 function convolve(signal, kernel) {
     const output = [];
@@ -2586,7 +2606,7 @@ function checkGuess() {
     const convolvedData = window.convolvedData;
 
     // Define a threshold to filter out insignificant peaks
-    const threshold = Math.max(...convolvedData) * 0.8;
+    const threshold = Math.max(...convolvedData) * 0.2;
 
     const peaks = [];
     for (let i = 1; i < convolvedData.length - 1; i++) {
@@ -2604,7 +2624,7 @@ function checkGuess() {
     for (let i = 1; i < peaks.length; i++) {
         const interval = peaks[i] - peaks[i - 1];
         const intervalInSeconds = interval / 1000; // Convert to seconds
-        if (intervalInSeconds >= 0.3) { // Ignore intervals smaller than 0.3 seconds
+        if (intervalInSeconds >= 0.5) { // Ignore intervals smaller than 0.5 seconds
             peakIntervals.push(interval);
         }
     }
