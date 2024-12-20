@@ -219,7 +219,6 @@
                                     <option value="2">Triangular Wave</option>
                                     <option value="3">Half-Wave Rectifier</option>
                                     <option value="4">Full-Wave Rectifier</option>
-                                    <option value="5">Custom Wave</option>
                                 </select>
                             </div>
                             <div class="slider"> Number of coefficients: &emsp; <input type="range" min="1" max="50" value="1" id="sqSlider"> </div>
@@ -245,6 +244,7 @@
         <section class="fre" id="quasi">
             <div class="max-width ">
                 <h2 class="title">Visualize Quasi-Periodic Signals</h2>
+                    
                 <div class="columns is-centered">
                     <div class="v-collapsible-instruction-container v-instruction-container" style="margin-bottom: 5%; margin-top: 5%;">
                         <div class="v-collapsible is-size-5">Instructions</div>
@@ -267,7 +267,7 @@
                     <div class="column flex">
                         <div class="box-question">
                             <div class="box">
-                                <select id="dropDownQuasi">
+                                <select id="dropDownQuasi" value="1">
                                     <option value="1">ECG</option>
                                     <option value="2">Double Pendulum</option>
                                 </select>
@@ -276,10 +276,27 @@
                                 <button class="buttonTotal" id="jsbutton5" role="button" onClick="quasi()">Generate</button>
                                 <button class="buttonTotal" id="stop" role="button" onClick="stopPendulum()" style="display: none;">Stop</button>
                             </div>
-                            <div class="slider">
-                                <input type="range" min="1" max="30" value="1" id="ecgNoiseSlider">
+                            <div class="slider" id="ecgNoiseSlider" style="display: block;">
+                                <input type="range" min="1" max="30" value="1"  id="ecgNoiseSliderValue">
                                 <label for="ecgNoiseSlider" style="display: block; text-align: start;margin-bottom: 4rem;">Noise Level</label>
                             </div>
+
+                            <div class="slider" id="length1Slider" style="display: none;">
+                                <input type="range" min="1" max="5" value="1" id="length1SliderValue">
+                                <label for="ecgNoiseSlider" style="display: block; text-align: start;margin-bottom: 4rem; ">Length of Rod 1</label>
+                            </div>
+                            <div class="slider" id="length2Slider" style="display: none;">
+                                <input type="range" min="1" max="5" value="1" id="length2SliderValue">
+                                <label for="ecgNoiseSlider" style="display: block; text-align: start;margin-bottom: 4rem;">Length of Rod 2</label>
+                            </div>
+                            <div class="slider" id="gravitySlider" style="display: none;">
+                                <input type="range" min="1" max="6" value="3" id="gravitySliderValue">
+                                <label for="ecgNoiseSlider" style="display: block; text-align: start;margin-bottom: 4rem;">Gravity</label>
+                            </div>
+
+
+
+                            <div id="ecgstuff">
                             <div class="input-group" style="margin-top: 2rem;">
                                 <button class="buttonTotal" id="convolveButton" role="button" onClick="toggleConvolution()">Convolve</button>
                             </div>
@@ -291,6 +308,7 @@
                                 <h3>Hint: Use convolution to find the peaks in the ECG signal and estimate the heart rate.</h3>
                             </div>
                             <div id="result" style="margin-top: 1rem;"></div>
+                        </div>
                         </div>
                     </div>
                     
@@ -304,12 +322,15 @@
                                 <div id="outputECG">
                                     <div id='figure10'></div>
                                 </div>
-                                <canvas id="pendulumCanvas" width="800" height="600" style="display: none;"></canvas>
+                                <canvas id="pendulumCanvas" width="600" height="600" style="display: none;"></canvas>
                             </div>
                         </div>
                     </div>
     
             </div>
+
+
+            
         </section>
     </div>
 
@@ -323,3 +344,6 @@
 </body>
 
 </html>
+
+
+
