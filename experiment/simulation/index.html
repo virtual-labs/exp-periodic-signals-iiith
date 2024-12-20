@@ -241,14 +241,9 @@
         </section>
     </div>
 
-    
-
-
-
-
     <div id="CA" class="tabcontent">
         <section class="fre" id="quasi">
-            <div class="max-width">
+            <div class="max-width ">
                 <h2 class="title">Visualize Quasi-Periodic Signals</h2>
                 <div class="columns is-centered">
                     <div class="v-collapsible-instruction-container v-instruction-container" style="margin-bottom: 5%; margin-top: 5%;">
@@ -261,7 +256,7 @@
                             <h3>
                                 <ol>
                                     <li> Choose a real-life system from the drop-down list </li>
-                                    <li> Click the "Plot" button to view the plot in the figure </li>
+                                    <li> Click the "Generate" button to view the plot in the figure </li>
                                 </ol>
                             </h3>
                         </div>
@@ -269,7 +264,7 @@
                 </div>
     
                 <div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start" style="margin-top:-1.5%">
-                    <div class="column is-4-desktop is-8-tablet is-6-mobile">
+                    <div class="column flex">
                         <div class="box-question">
                             <div class="box">
                                 <select id="dropDownQuasi">
@@ -277,38 +272,42 @@
                                     <option value="2">Double Pendulum</option>
                                 </select>
                             </div>
-                            <button class="buttonTotal" id="jsbutton5" role="button" onClick="quasi()">Check</button>
-                            <button class="buttonTotal" id="stop" role="button" onClick="stopPendulum()">Stop</button>
-                            <button class="buttonTotal" id="convolveButton" role="button" onClick="performConvolution()">Convolve</button>
-                            <div class="input-group" style="margin-top: 10px;">
-                                <input type="text" id="userGuess" placeholder="Enter your guess for heart rate (bpm)">
-                                <button class="buttonTotal" id="guessButton" role="button" onClick="checkGuess()">Submit Guess</button>
+                            <div class="button-container">
+                                <button class="buttonTotal" id="jsbutton5" role="button" onClick="quasi()">Generate</button>
+                                <button class="buttonTotal" id="stop" role="button" onClick="stopPendulum()" style="display: none;">Stop</button>
                             </div>
-                            <div id="hint" style="margin-top: 10px;">
+                            <div class="slider">
+                                <input type="range" min="1" max="10" value="1" id="ecgNoiseSlider">
+                                <label for="ecgNoiseSlider" style="display: block; text-align: start;margin-bottom: 4rem;">Noise Level</label>
+                            </div>
+                            <div class="input-group" style="margin-top: 2rem;">
+                                <button class="buttonTotal" id="convolveButton" role="button" onClick="toggleConvolution()">Convolve</button>
+                            </div>
+                            <div class="input-group" style="margin-top: 2rem;">
+                                <input type="text" id="userGuess" placeholder="Enter your guess for heart rate (bpm)">
+                                <button class="buttonTotal" id="guessButton" role="button" onClick="checkGuess()" style="border-radius: 5px;">Submit Guess</button>
+                            </div>
+                            <div id="hint" style="margin-top: 2rem;">
                                 <h3>Hint: Use convolution to find the peaks in the ECG signal and estimate the heart rate.</h3>
                             </div>
-                            <div id="result" style="margin-top: 10px;"></div>
+                            <div id="result" style="margin-top: 1rem;"></div>
                         </div>
                     </div>
-    
+                    
                     <div class="column is-8-desktop is-4-tablet is-12-mobile">
                         <div class="box-question">
                             <div class="v-datalist-title">Observations</div>
                             <div id="observations5">
-                                <div class="tab">
-                                    <button class="tablinks" onclick="openECGTab(event, 'inputECG')" id="defaultECG">Input</button>
-                                    <button class="tablinks" onclick="openECGTab(event, 'outputECG')">Output</button>
-                                </div>
-                                <div id="inputECG" class="tabcontentECG">
-                                    <canvas id="kanvass" width="600" height="600" style="border: 1px solid black; margin-top: 2%;"></canvas>
-                                </div>
-                                <div id="outputECG" class="tabcontentECG">
+                                <div id="inputECG">
                                     <div id='figure9'></div>
                                 </div>
+                                <div id="outputECG">
+                                    <div id='figure10'></div>
+                                </div>
+                                <canvas id="pendulumCanvas" width="800" height="600" style="display: none;"></canvas>
                             </div>
                         </div>
                     </div>
-                </div>
     
             </div>
         </section>

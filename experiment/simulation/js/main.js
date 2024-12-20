@@ -45,6 +45,8 @@ var delayChoice;
 var boxChoice;
 var yValues;
 var inValues;
+let isConvolutionOn = 0;
+
 
 // ------------------------------------------- Slider --------------------------------------------------------------------
 
@@ -2282,7 +2284,7 @@ function sqSeries()
 
 // ------------------------------------------------ Quasi - Periodic -----------------------------------------------------------
 
-const kanvas = document.getElementById("kanvass");
+const kanvas = document.getElementById("pendulumCanvas");
 const ctx = kanvas.getContext("2d");
 
 var iterQuasi = 0;
@@ -2305,35 +2307,72 @@ let omega1 = 0; // Initial angular velocity of the first pendulum
 let omega2 = 0; // Initial angular velocity of the second pendulum
 
 
+function toggleConvolution() {
+    isConvolutionOn = !isConvolutionOn;
+    if (isConvolutionOn) {
+        performConvolution();
+        document.getElementById("convolveButton").innerText = "Remove Convolution";
+    } else {
+        Plotly.purge('figure10');
+        document.getElementById("convolveButton").innerText = "Convolve";
+    }
+}
+
+function addAWGN(signal, variance) {
+    return signal.map(value => value +  (Math.sqrt(variance / 2) * gaussianRandom())*0.05);
+}
+function gaussianRandom() {
+    let u = 0, v = 0;
+    while (u === 0) u = Math.random(); // Converting [0,1) to (0,1)
+    while (v === 0) v = Math.random();
+    return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+}
+
+
 function quasi() {
     var chosen = document.getElementById("dropDownQuasi").value;
     var choice = parseInt(chosen);
 
     if (choice == 1) {
-        ctx.clearRect(0, 0, kanvas.width, kanvas.height);
+        document.getElementById("stop").style.display = "none";
+        kanvas.style.display = "none";
         const ecgData = generateECGSignal();
+        const noiseVariance = parseFloat(document.getElementById("ecgNoiseSlider").value);
+        const noisyECGData = addAWGN(ecgData, noiseVariance);
+        window.ecgData = noisyECGData;
 
-        // Set up canvas drawing parameters
-        const canvasWidth = kanvas.width;
-        const canvasHeight = kanvas.height;
-        const signalAmplitude = canvasHeight / 4;
-        const signalOffset = canvasHeight / 2;
+        // Plot the ECG-like signal
+        var trace = {
+            x: Array.from({ length: noisyECGData.length }, (_, i) => i / 1000), // Convert to seconds
+            y: noisyECGData,
+            type: 'scatter',
+            mode: 'line'
+        };
 
-        // Draw the ECG-like signal on the canvas
-        ctx.beginPath();
-        ctx.moveTo(0, ecgData[0] * signalAmplitude + signalOffset);
+        var layout = {
+            title: 'Noisy ECG Signal',
+            showlegend: false,
+            xaxis: {
+                title: 'Time (s)'
+            },
+            yaxis: {
+                title: 'Amplitude'
+            }
+        };
 
-        for (let i = 1; i < ecgData.length; i++) {
-            ctx.lineTo((i / ecgData.length) * canvasWidth, ecgData[i] * signalAmplitude + signalOffset);
-        }
+        var data = [trace];
 
-        ctx.strokeStyle = 'blue';
-        ctx.lineWidth = 2;
-        ctx.stroke();
+        var config = { responsive: true }
 
-        // Store the ECG data for convolution
-        window.ecgData = ecgData;
+        Plotly.newPlot('figure9', data, layout, config);
+
+        // Clear the convolved signal plot
+        Plotly.purge('figure10');
     } else if (choice == 2) {
+        Plotly.purge('figure9');
+
+        document.getElementById("stop").style.display = "block";
+        kanvas.style.display = "block";
         iterQuasi = 0;
         t1acc = [];
         t2acc = [];
@@ -2354,10 +2393,75 @@ function quasi() {
     }
 }
 
+const g = 9.81; // Acceleration due to gravity
+const length1 = 2; // Length of the first pendulum arm
+const length2 = 3; // Length of the second pendulum arm
+
+const timeStep = 0.005; // Time step for simulation
+const traceLength = 100; // Number of points to trace the motion
+
+
+
+function updatePendulum() {
+    // Pendulum physics calculations
+    const num1 = -g * (2 * length1 + length2) * Math.sin(theta1);
+    const num2 = -length2 * g * Math.sin(theta1 - 2 * theta2);
+    const num3 = -2 * Math.sin(theta1 - theta2) * length2;
+    const num4 = omega2 * omega2 * length2 + omega1 * omega1 * length1 * Math.cos(theta1 - theta2);
+    const den = length1 * (2 * length1 + length2 - length2 * Math.cos(2 * theta1 - 2 * theta2));
+
+    const a1 = (num1 + num2 + num3 * num4) / den;
+
+    const num5 = 2 * Math.sin(theta1 - theta2);
+    const num6 = (omega1 * omega1 * length1 * (length1 + length2));
+    const num7 = g * (length1 + length2) * Math.cos(theta1);
+    const num8 = omega2 * omega2 * length2 * length2 * Math.cos(theta1 - theta2);
+    const den2 = length2 * (2 * length1 + length2 - length2 * Math.cos(2 * theta1 - 2 * theta2));
+
+    const a2 = (num5 * (num6 + num7 + num8)) / den2;
+
+    omega1 += a1 * timeStep;
+    omega2 += a2 * timeStep;
+    theta1 += omega1 * timeStep;
+    theta2 += omega2 * timeStep;
+
+    // Store the angles for plotting
+    t1acc.push(theta1);
+    t2acc.push(theta2);
+    toime.push(TIME);
+    TIME += timeStep;
+
+    // Draw the pendulum
+    const x1 = length1 * Math.sin(theta1);
+    const y1 = length1 * Math.cos(theta1);
+    const x2 = x1 + length2 * Math.sin(theta2);
+    const y2 = y1 + length2 * Math.cos(theta2);
+
+    drawPendulum(x1, y1, x2, y2);
+}
+
+function drawPendulum(x1, y1, x2, y2) {
+    ctx.clearRect(0, 0, kanvas.width, kanvas.height);
+    ctx.beginPath();
+    ctx.moveTo(kanvas.width / 2, 0);
+    ctx.lineTo(kanvas.width / 2 + x1 * 100, y1 * 100);
+    ctx.lineTo(kanvas.width / 2 + x2 * 100, y2 * 100);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(kanvas.width / 2 + x1 * 100, y1 * 100, 10, 0, 2 * Math.PI);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(kanvas.width / 2 + x2 * 100, y2 * 100, 10, 0, 2 * Math.PI);
+    ctx.fill();
+}
+
+
 function generateECGSignal() {
     const data = [];
     const heartRates = [60, 70, 80, 90, 100, 110, 120];
-    heartRate = heartRates[Math.floor(Math.random() * heartRates.length)]; // Random heart rate
+    const heartRate = heartRates[Math.floor(Math.random() * heartRates.length)]; // Random heart rate
     const duration = 10; // Duration of the signal in seconds
     const sampleRate = 1000; // Samples per second
     const numSamples = duration * sampleRate;
@@ -2398,21 +2502,49 @@ function generateECGSignal() {
     return data;
 }
 
+function savitzkyGolay(data, windowSize, polynomialOrder) {
+    const halfWindow = Math.floor(windowSize / 2);
+    const coefficients = [];
+    const result = [];
+
+    for (let i = -halfWindow; i <= halfWindow; i++) {
+        let sum = 0;
+        for (let j = 0; j <= polynomialOrder; j++) {
+            sum += Math.pow(i, j);
+        }
+        coefficients.push(sum);
+    }
+
+    for (let i = 0; i < data.length; i++) {
+        let sum = 0;
+        for (let j = -halfWindow; j <= halfWindow; j++) {
+            const index = i + j;
+            if (index >= 0 && index < data.length) {
+                sum += data[index] * coefficients[j + halfWindow];
+            }
+        }
+        result.push(sum);
+    }
+
+    return result;
+}
+
 function performConvolution() {
     const ecgData = window.ecgData;
-    const kernel = [1, -1]; // Simple derivative kernel for peak detection
-    const convolvedData = convolve(ecgData, kernel);
+    const windowSize = 5; // Adjust window size as needed
+    const polynomialOrder = 2; // Adjust polynomial order as needed
+    const smoothedData = savitzkyGolay(ecgData, windowSize, polynomialOrder);
 
-    // Plot the convolved data
+    // Plot the smoothed data
     var trace = {
-        x: Array.from({ length: convolvedData.length }, (_, i) => i / 1000), // Convert to seconds
-        y: convolvedData,
+        x: Array.from({ length: smoothedData.length }, (_, i) => i / 1000), // Convert to seconds
+        y: smoothedData,
         type: 'scatter',
         mode: 'line'
     };
 
     var layout = {
-        title: 'Convolved ECG Signal',
+        title: 'Smoothed ECG Signal',
         showlegend: false,
         xaxis: {
             title: 'Time (s)'
@@ -2426,30 +2558,11 @@ function performConvolution() {
 
     var config = { responsive: true }
 
-    if (screen.width < 769) {
-        var update = {
-            width: 0.8 * screen.width,
-            height: 400
-        };
-    } else if (screen.width > 1600) {
-        var update = {
-            width: 0.55 * screen.width,
-            height: 400
-        };
-    } else {
-        var update = {
-            width: 500,
-            height: 500
-        };
-    }
+    Plotly.newPlot('figure10', data, layout, config);
 
-    Plotly.newPlot('figure9', data, layout, config);
-    Plotly.relayout('figure9', update);
-
-    // Store the convolved data for peak detection
-    window.convolvedData = convolvedData;
+    // Store the smoothed data for peak detection
+    window.convolvedData = smoothedData;
 }
-
 function convolve(signal, kernel) {
     const output = [];
     const halfKernel = Math.floor(kernel.length / 2);
@@ -2473,7 +2586,7 @@ function checkGuess() {
     const convolvedData = window.convolvedData;
 
     // Define a threshold to filter out insignificant peaks
-    const threshold = Math.max(...convolvedData) * 0.5;
+    const threshold = Math.max(...convolvedData) * 0.8;
 
     const peaks = [];
     for (let i = 1; i < convolvedData.length - 1; i++) {
@@ -2489,7 +2602,16 @@ function checkGuess() {
 
     const peakIntervals = [];
     for (let i = 1; i < peaks.length; i++) {
-        peakIntervals.push(peaks[i] - peaks[i - 1]);
+        const interval = peaks[i] - peaks[i - 1];
+        const intervalInSeconds = interval / 1000; // Convert to seconds
+        if (intervalInSeconds >= 0.3) { // Ignore intervals smaller than 0.3 seconds
+            peakIntervals.push(interval);
+        }
+    }
+
+    if (peakIntervals.length < 1) {
+        document.getElementById("result").innerHTML = `<h3>Not enough valid peak intervals detected to estimate heart rate.</h3>`;
+        return;
     }
 
     const averageInterval = peakIntervals.reduce((a, b) => a + b, 0) / peakIntervals.length;
@@ -2509,20 +2631,6 @@ function checkGuess() {
     } else {
         resultDiv.innerHTML = `<h3>Incorrect. The estimated heart rate is approximately ${Math.round(heartRate)} bpm.</h3>`;
     }
-}
-
-function openECGTab(evt, tabName) {
-    var i, tabcontentECG, tablinks;
-    tabcontentECG = document.getElementsByClassName("tabcontentECG");
-    for (i = 0; i < tabcontentECG.length; i++) {
-        tabcontentECG[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
 }
 
 function drawQuasiPendulum() {
@@ -2548,33 +2656,16 @@ function drawQuasiPendulum() {
 
     var config = { responsive: true }
 
-    if (screen.width < 769) {
-        var update = {
-            width: 0.8 * screen.width,
-            height: 400
-        };
-    } else if (screen.width > 1600) {
-        var update = {
-            width: 0.55 * screen.width,
-            height: 400
-        };
-    } else {
-        var update = {
-            width: 500,
-            height: 500
-        };
-    }
-
     Plotly.newPlot('figure9', data1, layout1, config);
-    Plotly.relayout('figure9', update);
 }
 
 // -------------------------------- Toggle stop button ------------------------------------------------------------
 
 function stopPendulum() {
     clearInterval(intID);
-    drawQuasiPendulum();
-    toggler('stop');
+    ctx.clearRect(0, 0, kanvas.width, kanvas.height);
+    kanvas.style.display = "none";
+    document.getElementById("stop").style.display = "none";
 }
 
 function toggler(divId) {
@@ -2604,9 +2695,8 @@ function makeArr(startValue, stopValue, cardinality) {
 // ------------------------------------------ On startup ----------------------------------------------------------
 
 function startup() {
-    stopVisible();
     document.getElementById("default").click();
-    document.getElementById("defaultECG").click();
 }
+
 
 window.onload = startup;

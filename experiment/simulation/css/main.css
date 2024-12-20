@@ -23,14 +23,21 @@ html {
     background: #555;
 }
 
+#pendulumCanvas {
+    border: 1px solid #000;
+    margin-top: 2rem;
+}
+
+
+
 /* ---------------------------------- Laptops and Desktops ------------------------- */
 
 @media (min-width: 1200px) {
 
 .max-width {
     max-width: 1500px;
-    padding: 0 80px;
-    margin: auto;
+    width: 80%;
+    padding: 0 40px;
 }
 
 section .title {
@@ -69,6 +76,7 @@ section .title {
     transition: border-color 0.3s ease;
 }
 
+
 .box::before {
     content: "\f13a";
     font-family: 'Ubuntu', sans-serif;
@@ -83,6 +91,7 @@ section .title {
     color: rgba(255, 255, 255, 0.5);
     background-color: rgba(255, 255, 255, 0.1);
     pointer-events: none;
+    
 }
 
 .box:hover::before {
@@ -107,7 +116,7 @@ section .title {
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
-    margin-top: 10px;
+    margin-top: 10px;   
 }
 
 .buttonTotal {
@@ -131,8 +140,6 @@ section .title {
     -webkit-user-select: none;
     touch-action: manipulation;
     margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .buttonTotal:hover {
@@ -140,9 +147,19 @@ section .title {
     transform: scale(1.05);
 }
 
+
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
 }
 
-/* ----------------------------------------- Big Tabs ------------------------------------------ */
+
+}
+
+
+/* -----------------------------------------  Tabs ------------------------------------------ */
 
 @media (max-width: 1200px) and (min-width: 768px) {
 
@@ -259,242 +276,10 @@ section .title {
 
 }
 
-/* ----------------------------------------- Small Tabs ------------------------------------------ */
 
-@media (max-width: 768px) and (min-width: 720px) {
+/*---------------------------------- Phones ------------------------------------ */
 
-.max-width {
-    max-width: 770px;
-    padding: 0 80px;
-    margin: auto;
-}
-
-section .title {
-    position: relative;
-    text-align: center;
-    color: #000000;
-    font-size: 40px;
-    font-weight: 500;
-    margin-top: 10%;
-    font-family: 'Ubuntu', sans-serif;
-}
-
-.fre {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #000000; /* Color of Name, and moving text in first page */
-    background-size: cover;
-    background-attachment: fixed;
-    font-family: 'Ubuntu', sans-serif;
-}
-
-.box {
-    position: relative;
-    margin-top: 5%;
-    width: 90%;
-}
-
-.box select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #98CB3B;
-    border-radius: 5px;
-    background-color: #FFFFFF;
-    transition: border-color 0.3s ease;
-}
-
-.box::before {
-    content: "\f13a";
-    font-family: 'Ubuntu', sans-serif;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 20%;
-    height: 100%;
-    text-align: center;
-    font-size: 28px;
-    line-height: 45px;
-    color: rgba(255, 255, 255, 0.5);
-    background-color: rgba(255, 255, 255, 0.1);
-    pointer-events: none;
-}
-
-.box:hover::before {
-    color: rgba(255, 255, 255, 0.6);
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-.box select option {
-    padding: 30px;
-}
-
-.figureLast {
-    margin-left: 0%;
-}
-
-.slider {
-    width: 100%;
-    height: 15px;
-    border-radius: 5px;
-    outline: none;
-    opacity: 0.7;
-    margin-top: 10px;
-}
-
-.buttonTotal {
-    display: block;
-    width: 90%;
-    height: auto;
-    font-size: 100%;
-    position: relative;
-    padding: 10px 20px;
-    background-color: #98CB3B;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.buttonTotal:hover {
-    background-color: #2C9AD1;
-    transform: scale(1.05);
-}
-
-}
-
-/* ----------------------------------------------- Large Phones ---------------------------------- */
-
-@media (max-width: 720px) and (min-width: 420px) {
-
-.max-width {
-    max-width: 740px;
-    padding: 0 20px;
-    margin: auto;
-}
-
-section .title {
-    position: relative;
-    text-align: center;
-    color: #000000;
-    font-size: 30px;
-    font-weight: 500;
-    margin-top: 5%;
-    width: 100%;
-    font-family: 'Ubuntu', sans-serif;
-}
-
-.fre {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #000000; /* Color of Name, and moving text in first page */
-    background-size: cover;
-    background-attachment: fixed;
-    font-family: 'Ubuntu', sans-serif;
-}
-
-.box {
-    position: relative;
-    margin-top: 5%;
-    width: 100%;
-}
-
-.box select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #98CB3B;
-    border-radius: 5px;
-    background-color: #FFFFFF;
-    transition: border-color 0.3s ease;
-}
-
-.box::before {
-    content: "\f13a";
-    font-family: 'Ubuntu', sans-serif;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 20%;
-    height: 100%;
-    text-align: center;
-    font-size: 28px;
-    line-height: 45px;
-    color: rgba(255, 255, 255, 0.5);
-    background-color: rgba(255, 255, 255, 0.1);
-    pointer-events: none;
-}
-
-.box:hover::before {
-    color: rgba(255, 255, 255, 0.6);
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-.box select option {
-    padding: 10px;
-}
-
-.figureLast {
-    margin-left: 0%;
-}
-
-.slider {
-    width: 100%;
-    height: 15px;
-    border-radius: 5px;
-    outline: none;
-    opacity: 0.7;
-    margin-top: 10px;
-}
-
-.buttonTotal {
-    display: block;
-    width: 100%;
-    height: auto;
-    font-size: 100%;
-    position: relative;
-    padding: 10px 20px;
-    background-color: #98CB3B;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.buttonTotal:hover {
-    background-color: #2C9AD1;
-    transform: scale(1.05);
-}
-
-}
-
-/* ------------------------------------- Small Phones ------------------------------------ */
-
-@media (max-width: 420px) {
+@media (max-width: 768px) {
 
 .max-width {
     max-width: 460px;
