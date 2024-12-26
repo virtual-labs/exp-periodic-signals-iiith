@@ -2159,65 +2159,53 @@ function calculateSquareCoefficient_bk(x, T, kMax, t) {
   return bk;
 }
 
+function plotSqCoeff(signal, xValues) {
+  // Calculate Haar wavelet coefficients
+  const haarCoefficients = haarWaveletTransform(signal);
+  
+  // Create array for coefficient indices
+  const coeffIndices = Array.from({length: haarCoefficients.length}, (_, i) => i);
 
-function plotSqCoeff(ak, bk, xValues, kValues, mySignal) {
   var trace1 = {
     x: xValues,
-    y: mySignal,
+    y: signal,
     type: "scatter",
     mode: "line",
+    name: "Original Signal"
   };
 
   var trace2 = {
-    x: kValues,
-    y: ak,
-    type: "scatter",
+    x: coeffIndices,
+    y: haarCoefficients,
+    type: "scatter", 
     mode: "markers",
-  };
-
-  var trace3 = {
-    x: kValues,
-    y: bk,
-    type: "scatter",
-    mode: "markers",
+    name: "Haar Coefficients"
   };
 
   var layout1 = {
     title: "Original Signal",
-    showlegend: false,
+    showlegend: true,
     xaxis: {
       title: "Time (s)",
     },
     yaxis: {
-      title: "Magnitude",
+      title: "Magnitude", 
     },
   };
 
   var layout2 = {
-    title: "Fourier Coefficients",
-    showlegend: false,
+    title: "Haar Wavelet Coefficients",
+    showlegend: true,
     xaxis: {
-      title: "k",
+      title: "Coefficient Index",
     },
     yaxis: {
-      title: "ak",
-    },
-  };
-
-  var layout3 = {
-    title: "Fourier Coefficients",
-    showlegend: false,
-    xaxis: {
-      title: "k",
-    },
-    yaxis: {
-      title: "bk",
+      title: "Coefficient Magnitude",
     },
   };
 
   var data1 = [trace1];
   var data2 = [trace2];
-  var data3 = [trace3];
 
   var config = { responsive: true };
 
@@ -2244,10 +2232,9 @@ function plotSqCoeff(ak, bk, xValues, kValues, mySignal) {
   Plotly.newPlot("figure6", data2, layout2, config);
   Plotly.relayout("figure6", update);
 
-  Plotly.newPlot("figure7", data3, layout3, config);
-  Plotly.relayout("figure7", update);
+  // Remove the third plot since we only need two plots now
+  Plotly.purge("figure7");
 }
-
 
 function haarWaveletTransform(signal) {
   const N = signal.length;
@@ -2289,16 +2276,11 @@ function inverseHaarWaveletTransform(coefficients) {
 function sqSeries() {
   var chosen = document.getElementById("dropDownSqSeries").value;
   var choice = parseInt(chosen);
-
-  var num = 20;
-  var kValues = makeArr(0, num, num + 1);
-  var N = 1000;
+  var N = 1024; // Use power of 2 for Haar transform
 
   if (choice == 1) {
     var T = 1;
-
     var xValues = makeArr(0, T, N);
-
     var boxSignal = [];
     for (var i = 0; i < N; i++) {
       if (i < N / 2) {
@@ -2307,18 +2289,11 @@ function sqSeries() {
         boxSignal.push(-1);
       }
     }
+    plotSqCoeff(boxSignal, xValues);
 
-    var mySignal = boxSignal.slice();
-
-    var ak = calculateSquareCoefficient_ak(mySignal, T, num, xValues);
-    var bk = calculateSquareCoefficient_bk(mySignal, T, num, xValues);
-
-    plotSqCoeff(ak, bk, xValues, kValues, boxSignal);
   } else if (choice == 2) {
     var T = 2;
-
     var xValues = makeArr(0, T, N);
-
     var triangleSignal = [];
     for (var i = 0; i < N; i++) {
       if (i < N / 4) {
@@ -2329,18 +2304,11 @@ function sqSeries() {
         triangleSignal.push(2 * (xValues[i] - 2));
       }
     }
+    plotSqCoeff(triangleSignal, xValues);
 
-    var mySignal = triangleSignal.slice();
-
-    var ak = calculateSquareCoefficient_ak(mySignal, T, num, xValues);
-    var bk = calculateSquareCoefficient_bk(mySignal, T, num, xValues);
-
-    plotSqCoeff(ak, bk, xValues, kValues, triangleSignal);
   } else if (choice == 3) {
     var T = 2 * Math.PI;
-
     var xValues = makeArr(0, T, N);
-
     var mySignal = [];
     for (var i = 0; i < N; i++) {
       if (i < N / 2) {
@@ -2349,18 +2317,11 @@ function sqSeries() {
         mySignal.push(0);
       }
     }
+    plotSqCoeff(mySignal, xValues);
 
-    var mySignal1 = mySignal.slice();
-
-    var ak = calculateSquareCoefficient_ak(mySignal1, T, num, xValues);
-    var bk = calculateSquareCoefficient_bk(mySignal1, T, num, xValues);
-
-    plotSqCoeff(ak, bk, xValues, kValues, mySignal);
   } else if (choice == 4) {
     var T = 2 * Math.PI;
-
     var xValues = makeArr(0, T, N);
-
     var mySignal = [];
     for (var i = 0; i < N; i++) {
       if (i < N / 2) {
@@ -2369,18 +2330,11 @@ function sqSeries() {
         mySignal.push(-Math.sin(xValues[i]));
       }
     }
+    plotSqCoeff(mySignal, xValues);
 
-    var mySignal1 = mySignal.slice();
-
-    var ak = calculateSquareCoefficient_ak(mySignal1, T, num, xValues);
-    var bk = calculateSquareCoefficient_bk(mySignal1, T, num, xValues);
-
-    plotSqCoeff(ak, bk, xValues, kValues, mySignal);
   } else {
     var T = 4 * Math.PI;
-
     var xValues = makeArr(0, T, N);
-
     var mySignal = [];
     for (var i = 0; i < N; i++) {
       if (i < N / 2) {
@@ -2389,13 +2343,7 @@ function sqSeries() {
         mySignal.push(-(1 + Math.abs(Math.sin(xValues[i]))) / 2);
       }
     }
-
-    var mySignal1 = mySignal.slice();
-
-    var ak = calculateSquareCoefficient_ak(mySignal1, T, num, xValues);
-    var bk = calculateSquareCoefficient_bk(mySignal1, T, num, xValues);
-
-    plotSqCoeff(ak, bk, xValues, kValues, mySignal);
+    plotSqCoeff(mySignal, xValues);
   }
 }
 
@@ -2474,6 +2422,9 @@ function quasi() {
     document.getElementById("convolveButton").style.display = "block";
     document.getElementById("guessButton").style.display = "block";
     document.getElementById("ecgstuff").style.display = "block";
+    Plotly.purge("figure10");
+    document.getElementById("convolveButton").innerText = "Convolve";
+
     kanvas.style.display = "none";
     const ecgData = generateECGSignal();
     const noiseVariance = parseFloat(
