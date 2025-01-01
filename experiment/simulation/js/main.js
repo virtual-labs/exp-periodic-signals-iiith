@@ -2136,7 +2136,6 @@ function calculateSquareCoefficient_ak(x, T, kMax, t) {
     var ak_here = integrate(y, T);
     ak.push((2 * ak_here) / T);
   }
-
   return ak;
 }
 
@@ -2760,6 +2759,8 @@ function convolve(signal, kernel) {
   return output;
 }
 
+let attemptCount = 0;
+
 function checkGuess() {
   const userGuess = parseInt(document.getElementById("userGuess").value);
   const convolvedData = window.convolvedData;
@@ -2820,10 +2821,20 @@ function checkGuess() {
       heartRate
     )} bpm.</h3>`;
   } else {
-    resultDiv.innerHTML = `<h3>Incorrect. The estimated heart rate is approximately ${Math.round(
-      heartRate
-    )} bpm.</h3>`;
+    attemptCount++;
+
+    resultDiv.innerHTML = `<h3>Incorrect. Try again<h3>`;
+    if(attemptCount>=5){
+      document.getElementById("showAnswerButton").style.display = "block";
+    }
   }
+}
+
+function showAnswer() {
+  const resultDiv = document.getElementById("result");
+  resultDiv.innerHTML = `<h3>The estimated heart rate is approximately ${Math.round(
+    heartRate
+  )} bpm.</h3>`;
 }
 
 
