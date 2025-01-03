@@ -2386,6 +2386,7 @@ function addAWGN(signal, variance) {
     (value) => value + Math.sqrt(variance / 2) * gaussianRandom() * 0.05
   );
 }
+
 function gaussianRandom() {
   let u = 0,
     v = 0;
@@ -2398,9 +2399,9 @@ function gaussianRandom() {
 
 
 var g = 9.81; // Acceleration due to gravity
-var length1 = 100; // Length of the first pendulum arm
+var length1 = 10; // Length of the first pendulum arm
 var length2 = 100; // Length of the second pendulum arm
-
+var g_refrence = 9.81;
 
 var lenfactor = 50;
 var gravityfactor = 0.33;
@@ -2499,7 +2500,7 @@ function quasi() {
       parseFloat(document.getElementById("length2SliderValue").value)
     );
 
-    g = gmultiplier*g;
+    g = gmultiplier*g_refrence;
     length1 = l1multiplier;
     length2 = l2multiplier;
     intID = setInterval(updatePendulum, 1);
@@ -2910,6 +2911,19 @@ function toggler(divId) {
 function stopVisible() {
   toggler("stop");
 }
+
+
+var slider = document.getElementById("myRange");
+slider.oninput = function() {
+    document.getElementById("rangeValue").innerHTML = this.value;
+    fourier(this.value);
+};
+
+var squareSlider = document.getElementById("sqSlider");
+squareSlider.oninput = function() {
+    document.getElementById("sqSliderValue").innerHTML = this.value;
+    quant(this.value);
+};
 
 /* ---------------------------- LinSpace -------------------------------------- */
 
