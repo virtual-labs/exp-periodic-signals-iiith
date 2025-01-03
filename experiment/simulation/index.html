@@ -168,7 +168,12 @@
                                     <option value="5">Custom Wave</option>
                                 </select>
                             </div>
-                            <div class="slider"> Number of coefficients: &emsp; <input type="range" min="1" max="50" value="1" id="myRange"> </div>
+                            <!-- <div class="slider"> Number of coefficients: &emsp; <input type="range" min="1" max="50" value="1" id="myRange"> </div> -->
+                            <div class="slider"> 
+                                Number of coefficients: &emsp; 
+                                <input type="range" min="1" max="50" value="1" id="myRange"> 
+                                <span id="rangeValue">1</span>
+                            </div>
                             <button class="buttonTotal" id="jsbutton2" role="button" onClick="callFourier()">Check</button>
                         </div>
                     </div>
@@ -221,7 +226,12 @@
                                     <option value="4">Full-Wave Rectifier</option>
                                 </select>
                             </div>
-                            <div class="slider"> Number of coefficients: &emsp; <input type="range" min="1" max="50" value="1" id="sqSlider"> </div>
+                            <!-- <div class="slider"> Number of coefficients: &emsp; <input type="range" min="1" max="50" value="1" id="sqSlider"> </div> -->
+                            <div class="slider"> 
+                                Number of coefficients: &emsp; 
+                                <input type="range" min="1" max="50" value="1" id="sqSlider">
+                                <span id="sqSliderValue">1</span>
+                            </div>    
                             <button class="buttonTotal" id="jsbutton4" role="button" onClick="callQuant()">Check</button>
                         </div>
                     </div>
