@@ -40,17 +40,6 @@ let isConvolutionOn = 0;
 
 // ------------------------------------------- Slider --------------------------------------------------------------------
 
-var slider = document.getElementById("myRange");
-
-slider.oninput = function () {
-  fourier(this.value);
-};
-
-var squareSlider = document.getElementById("sqSlider");
-
-squareSlider.oninput = function () {
-  quant(this.value);
-};
 /*
 var slider1 = document.getElementById("myRange1");
 
