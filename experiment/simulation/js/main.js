@@ -2337,6 +2337,7 @@ function sqSeries() {
 
 // ------------------------------------------------ Quasi - Periodic -----------------------------------------------------------
 
+
 const kanvas = document.getElementById("pendulumCanvas");
 const ctx = kanvas.getContext("2d");
 
@@ -2353,7 +2354,10 @@ var trace2 = [];
 
 let theta1 = Math.PI / 4; // Initial angle of the first pendulum
 let theta2 = Math.PI / 8; // Initial angle of the second pendulum
-
+let zeroCrossings = 0;
+let previousTheta1 = theta1;
+let zeroCrossingsTheta2 = 0;
+let previousTheta2 = theta2;
 var heartRate = 0;
 
 let omega1 = 0; // Initial angular velocity of the first pendulum
@@ -2411,6 +2415,7 @@ function quasi() {
     document.getElementById("convolveButton").style.display = "block";
     document.getElementById("guessButton").style.display = "block";
     document.getElementById("ecgstuff").style.display = "block";
+    document.getElementById("pendulumstuff").style.display = "none";
     Plotly.purge("figure10");
     document.getElementById("convolveButton").innerText = "Convolve";
 
@@ -2452,8 +2457,6 @@ function quasi() {
   } else if (choice == 2) {
     Plotly.purge("figure9");
 
-    // document.getElementById("stop").style.display = "block";
-
     kanvas.style.display = "block";
     document.getElementById("length1Slider").style.display = "block";
     document.getElementById("length2Slider").style.display = "block";
@@ -2462,6 +2465,7 @@ function quasi() {
     document.getElementById("convolveButton").style.display = "none";
     document.getElementById("guessButton").style.display = "none";
     document.getElementById("ecgstuff").style.display = "none";
+    document.getElementById("pendulumstuff").style.display = "block";
     Plotly.purge("figure10");
     iterQuasi = 0;
     t1acc = [];
@@ -2479,6 +2483,11 @@ function quasi() {
     t1acc.push(theta1);
     toime.push(0);
     t2acc.push(theta2);
+    zeroCrossings = 0;
+    previousTheta1 = theta1;
+    zeroCrossingsTheta2 = 0;
+    previousTheta2 = theta2;
+    gravityfactor = 0.33;
     const gmultiplier = gravityfactor * (
       parseFloat(document.getElementById("gravitySliderValue").value)
     );
@@ -2488,8 +2497,9 @@ function quasi() {
     const l2multiplier = lenfactor * (
       parseFloat(document.getElementById("length2SliderValue").value)
     );
-
+    g_refrence = 9.81;
     g = gmultiplier*g_refrence;
+    console.log(g);
     length1 = l1multiplier;
     length2 = l2multiplier;
     intID = setInterval(updatePendulum, 1);
@@ -2500,9 +2510,9 @@ const timeStep = 0.05; // Time step for simulation
 const traceLength = 100; // Number of points to trace the motion
 
 function updatePendulum() {
-  // Equations of motion for double pendulum
-  if (iterQuasi > 4200) {
+  if (iterQuasi > 2000 || zeroCrossings >= 12) {
     stopPendulum();
+    estimateTimePeriod();
   }
 
   iterQuasi++;
@@ -2541,6 +2551,16 @@ function updatePendulum() {
   t2acc.push(theta2);
   toime.push(TIME);
 
+  if ((previousTheta1 > 0 && theta1 < 0) || (previousTheta1 < 0 && theta1 > 0)) {
+    zeroCrossings++;
+  }
+  if((previousTheta2 > 0 && theta2 < 0) || (previousTheta2 < 0 && theta2 > 0)) {
+    zeroCrossingsTheta2++;
+  }
+  
+  previousTheta1 = theta1;
+  previousTheta2 = theta2;
+
   const x1 = kanvas.width / 2 + length1 * Math.sin(theta1);
   const y1 = kanvas.height / 2 + length1 * Math.cos(theta1);
   const x2 = x1 + length2 * Math.sin(theta2);
@@ -2548,6 +2568,157 @@ function updatePendulum() {
 
   drawPendulum(x1, y1, x2, y2);
 }
+
+
+function togglePendulumConvolution() {
+  isConvolutionOn = !isConvolutionOn;
+  if (isConvolutionOn) {
+    performPendulumConvolution();
+    document.getElementById("convolvePendulumButton").innerText = "Remove Convolution";
+  } else {
+    Plotly.purge("figure10");
+    document.getElementById("convolvePendulumButton").innerText = "Convolve Theta1";
+  }
+}
+
+
+function performPendulumConvolution() {
+  const theta1Data = t1acc;
+  const convolvedData = convolve(theta1Data, theta1Data);
+
+  var trace = {
+    x: toime,
+    y: convolvedData,
+    type: "scatter",
+    mode: "line",
+  };
+
+  var layout = {
+    title: "Convolved Theta1 Signal",
+    showlegend: false,
+    xaxis: {
+      title: "Time (s)",
+    },
+    yaxis: {
+      title: "Amplitude",
+    },
+  };
+
+  var data = [trace];
+
+  var config = { responsive: true };
+
+  Plotly.newPlot("figure10", data, layout, config);
+
+  window.convolvedTheta1Data = convolvedData;
+}
+
+function checkPendulumGuess() {
+  const userGuess = parseFloat(document.getElementById("userPendulumGuess").value);
+  const convolvedData = window.convolvedTheta1Data;
+
+  console.log("User Guess:", userGuess);
+  console.log("Convolved Data:", convolvedData);
+
+  const threshold = Math.max(...convolvedData) * 0.2;
+  console.log("Threshold:", threshold);
+
+  const peaks = [];
+  for (let i = 1; i < convolvedData.length - 1; i++) {
+    if (
+      convolvedData[i] > convolvedData[i - 1] &&
+      convolvedData[i] > convolvedData[i + 1] &&
+      convolvedData[i] > threshold
+    ) {
+      peaks.push(i);
+    }
+  }
+
+  console.log("Detected Peaks:", peaks);
+
+  if (peaks.length < 2) {
+    document.getElementById(
+      "pendulumResult"
+    ).innerHTML = `<h3>Not enough peaks detected to estimate time period.</h3>`;
+    return;
+  }
+
+  const peakIntervals = [];
+  for (let i = 1; i < peaks.length; i++) {
+    const interval = peaks[i] - peaks[i - 1];
+    const intervalInSeconds = interval * timeStep / 10; // as it's timestep by 10
+    
+    peakIntervals.push(intervalInSeconds);
+  }
+
+  console.log("Peak Intervals:", peakIntervals);
+
+  if (peakIntervals.length < 2) {
+    document.getElementById(
+      "pendulumResult"
+    ).innerHTML = `<h3>Not enough valid peak intervals detected to estimate time period.</h3>`;
+    return; 
+  }
+
+  const averageInterval =
+    peakIntervals.reduce((a, b) => a + b, 0) / peakIntervals.length;
+
+  console.log("Average Interval:", averageInterval);
+
+  const tolerance = 0.3;
+  const resultDiv = document.getElementById("pendulumResult");
+  if (Math.abs(userGuess - averageInterval) <= tolerance) {
+    resultDiv.innerHTML = `<h3>Correct! The estimated time period is approximately ${averageInterval.toFixed(
+      2
+    )} seconds.</h3>`;
+  } else {
+    attemptCount++;
+
+    resultDiv.innerHTML = `<h3>Incorrect. Try again. Attempts left: ${5 - attemptCount}</h3>`;
+    if (attemptCount >= 5) {
+      document.getElementById("showPendulumAnswerButton").style.display = "block";
+    }
+  }
+}
+
+function showPendulumAnswer() {
+  const resultDiv = document.getElementById("pendulumResult");
+  const averageInterval = window.convolvedTheta1Data.reduce((a, b) => a + b, 0) / window.convolvedTheta1Data.length;
+  resultDiv.innerHTML = `<h3>The estimated time period is approximately ${averageInterval.toFixed(
+    2
+  )} seconds.</h3>`;
+}
+
+function estimateTimePeriod() {
+  const peakIntervals = [];
+  for (let i = 1; i < t1acc.length; i++) {
+    if ((t1acc[i - 1] > 0 && t1acc[i] < 0) || (t1acc[i - 1] < 0 && t1acc[i] > 0)) {
+      peakIntervals.push(toime[i]);
+    }
+  }
+
+  if (peakIntervals.length < 2) {
+    document.getElementById(
+      "result"
+    ).innerHTML = `<h3>Not enough peaks detected to estimate time period.</h3>`;
+    return;
+  }
+
+  const intervals = [];
+  for (let i = 1; i < peakIntervals.length; i++) {
+    intervals.push(peakIntervals[i] - peakIntervals[i - 1]);
+  }
+
+  const averageInterval =
+    intervals.reduce((a, b) => a + b, 0) / intervals.length;
+
+  document.getElementById(
+    "result"
+  ).innerHTML = `<h3>The estimated time period is approximately ${averageInterval.toFixed(
+    2
+  )} seconds.</h3>`;
+}
+
 
 function drawPendulum(x1, y1, x2, y2) {
     ctx.clearRect(0, 0, kanvas.width, kanvas.height);

@@ -250,6 +250,11 @@
         </section>
     </div>
 
+
+
+
+
+
     <div id="CA" class="tabcontent">
         <section class="fre" id="quasi">
             <div class="max-width ">
@@ -267,7 +272,8 @@
                                 <ol>
                                     <li> Choose a real-life system from the drop-down list </li>
                                     <li> Click the "Generate" button to view the plot in the figure </li>
-                                    <li> Guess the heart rate and click "Submit Guess" </li>
+                                    <li> For ECG, guess the heart rate and click "Submit Guess" </li>
+                                    <li> For Double Pendulum, guess the time period and click "Submit Guess" </li>
                                     <li> You have 5 attempts to guess correctly </li>
                                     <li> If you fail 5 times, click "Show Answer" to see the correct answer </li>
                                 </ol>
@@ -275,7 +281,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start" style="margin-top:-1.5%">
                     <div class="column flex">
                         <div class="box-question">
@@ -293,7 +299,7 @@
                                 <input type="range" min="1" max="30" value="1"  id="ecgNoiseSliderValue">
                                 <label for="ecgNoiseSlider" style="display: block; text-align: start;margin-bottom: 4rem;">Noise Level</label>
                             </div>
-    
+
                             <div class="slider" id="length1Slider" style="display: none;">
                                 <input type="range" min="1" max="5" value="1" id="length1SliderValue">
                                 <label for="ecgNoiseSlider" style="display: block; text-align: start;margin-bottom: 4rem; ">Length of Rod 1</label>
@@ -306,7 +312,7 @@
                                 <input type="range" min="1" max="6" value="3" id="gravitySliderValue">
                                 <label for="ecgNoiseSlider" style="display: block; text-align: start;margin-bottom: 4rem;">Gravity</label>
                             </div>
-    
+
                             <div id="ecgstuff">
                                 <div class="input-group" style="margin-top: 2rem;">
                                     <button class="buttonTotal" id="convolveButton" role="button" onClick="toggleConvolution()">Convolve</button>
@@ -321,6 +327,23 @@
                                 <div id="result" style="margin-top: 1rem;"></div>
                                 <div class="input-group" style="margin-top: 2rem;">
                                     <button class="buttonTotal" id="showAnswerButton" role="button" onClick="showAnswer()" style="display: none;">Show Answer</button>
+                                </div>
+                            </div>
+
+                            <div id="pendulumstuff" style="display: none;">
+                                <div class="input-group" style="margin-top: 2rem;">
+                                    <button class="buttonTotal" id="convolvePendulumButton" role="button" onClick="togglePendulumConvolution()">Convolve Theta1</button>
+                                </div>
+                                <div class="input-group" style="margin-top: 2rem;">
+                                    <input type="text" id="userPendulumGuess" placeholder="Enter your guess for time period (s)">
+                                    <button class="buttonTotal" id="guessPendulumButton" role="button" onClick="checkPendulumGuess()" style="border-radius: 5px;">Submit Guess</button>
+                                </div>
+                                <div id="pendulumHint" style="margin-top: 2rem;">
+                                    <h3>Hint: Use convolution to find the peaks in the Theta1 signal and estimate the time period.</h3>
+                                </div>
+                                <div id="pendulumResult" style="margin-top: 1rem;"></div>
+                                <div class="input-group" style="margin-top: 2rem;">
+                                    <button class="buttonTotal" id="showPendulumAnswerButton" role="button" onClick="showPendulumAnswer()" style="display: none;">Show Answer</button>
                                 </div>
                             </div>
                         </div>
@@ -340,10 +363,15 @@
                             </div>
                         </div>
                     </div>
-    
+
             </div>
         </section>
     </div>
+
+
+
+
+
 
     <script src="./js/main.js"></script>
     <script src="./js/katex.js"></script>
