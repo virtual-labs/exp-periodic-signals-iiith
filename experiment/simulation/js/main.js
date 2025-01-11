@@ -2417,7 +2417,10 @@ function quasi() {
     document.getElementById("ecgstuff").style.display = "block";
     document.getElementById("pendulumstuff").style.display = "none";
     Plotly.purge("figure10");
-    document.getElementById("convolveButton").innerText = "Convolve";
+    // document.getElementById("convolveButton").innerText = "Convolve";
+    if(isConvolutionOn){
+      toggleConvolution();
+    }
 
     kanvas.style.display = "none";
     const ecgData = generateECGSignal();
@@ -2467,6 +2470,10 @@ function quasi() {
     document.getElementById("ecgstuff").style.display = "none";
     document.getElementById("pendulumstuff").style.display = "block";
     Plotly.purge("figure10");
+    if(isConvolutionOn){
+      togglePendulumConvolution();
+    }
+    // document.getElementById("convolvePendulumButton").innerText = "Convolve Theta1";
     iterQuasi = 0;
     t1acc = [];
     t2acc = [];
@@ -2582,6 +2589,7 @@ function togglePendulumConvolution() {
 }
 
 
+
 function performPendulumConvolution() {
   const theta1Data = t1acc;
   const convolvedData = convolve(theta1Data, theta1Data);
@@ -2674,7 +2682,7 @@ function checkPendulumGuess() {
   } else {
     attemptCount++;
 
-    resultDiv.innerHTML = `<h3>Incorrect. Try again. Attempts left: ${5 - attemptCount}</h3>`;
+    resultDiv.innerHTML = `<h3>Incorrect. Try again.</h3>`;
     if (attemptCount >= 5) {
       document.getElementById("showPendulumAnswerButton").style.display = "block";
     }
