@@ -282,127 +282,203 @@ section .title {
 /*---------------------------------- Phones ------------------------------------ */
 
 @media (max-width: 768px) {
+    .max-width {
+        max-width: 100%;
+        padding: 0 15px;
+        margin: auto;
+    }
+      /* Adjust column widths for mobile */
+      .column.is-2-desktop.is-4-tablet.is-10-mobile {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
 
-.max-width {
-    max-width: 460px;
-    padding: 0 10px;
-    margin: auto;
-}
+    .column.is-7-desktop.is-10-tablet.is-10-mobile {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
 
-section .title {
-    position: relative;
-    text-align: center;
-    color: #000000;
-    font-size: 25px;
-    font-weight: 500;
-    margin-top: 5%;
-    width: 100%;
-    font-family: 'Ubuntu', sans-serif;
-}
+    .column.is-3-desktop.is-10-tablet.is-5-mobile {
+        width: 100%;
+    }
 
-.fre {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #000000; /* Color of Name, and moving text in first page */
-    background-size: cover;
-    background-attachment: fixed;
-    font-family: 'Ubuntu', sans-serif;
-}
+    section .title {
+        position: relative;
+        text-align: center;
+        color: #000000;
+        font-size: 24px;
+        font-weight: 500;
+        margin-top: 1rem;
+        width: 100%;
+        font-family: 'Ubuntu', sans-serif;
+        padding: 0 10px;
+    }
 
-.box {
-    position: relative;
-    margin-top: 5%;
-    width: 100%;
-}
+    .fre {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #000000;
+        background-size: cover;
+        background-attachment: fixed;
+        font-family: 'Ubuntu', sans-serif;
+    }
 
-.box select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #98CB3B;
-    border-radius: 5px;
-    background-color: #FFFFFF;
-    transition: border-color 0.3s ease;
-}
+    .box {
+        position: relative;
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-.box::before {
-    content: "\f13a";
-    font-family: 'Ubuntu', sans-serif;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 20%;
-    height: 100%;
-    text-align: center;
-    font-size: 28px;
-    line-height: 45px;
-    color: rgba(255, 255, 255, 0.5);
-    background-color: rgba(255, 255, 255, 0.1);
-    pointer-events: none;
-}
+    .box select {
+        width: 100%;
+        height: 44px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #98CB3B;
+        border-radius: 5px;
+        background-color: #FFFFFF;
+        transition: border-color 0.3s ease;
+        font-size: 16px;
+    }
 
-.box:hover::before {
-    color: rgba(255, 255, 255, 0.6);
-    background-color: rgba(255, 255, 255, 0.2);
-}
+    .box::before {
+        content: "\f13a";
+        font-family: 'Ubuntu', sans-serif;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20%;
+        height: 100%;
+        text-align: center;
+        font-size: 28px;
+        line-height: 45px;
+        color: rgba(255, 255, 255, 0.5);
+        background-color: rgba(255, 255, 255, 0.1);
+        pointer-events: none;
+    }
 
-.box select option {
-    padding: 10px;
-}
+    .box:hover::before {
+        color: rgba(255, 255, 255, 0.6);
+        background-color: rgba(255, 255, 255, 0.2);
+    }
 
-.figureLast {
-    margin-left: 0%;
-}
+    .box select option {
+        padding: 10px;
+    }
 
-.slider {
-    width: 100%;
-    height: 15px;
-    border-radius: 5px;
-    outline: none;
-    opacity: 0.7;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-}
+    .figureLast {
+        margin-left: 0%;
+        width: 100%;
+    }
 
-.buttonTotal {
-    display: block;
-    width: 100%;
-    height: auto;
-    font-size: 100%;
-    position: relative;
-    padding: 10px 20px;
-    background-color: #98CB3B;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-}
+    .slider {
+        width: 100%;
+        height: 44px;
+        border-radius: 5px;
+        outline: none;
+        opacity: 0.7;
+        margin: 1rem 0;
+        margin-bottom: 4rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-.buttonTotal:hover {
-    background-color: #2C9AD1;
-    transform: scale(1.05);
-}
+    }
 
-#observations3 {
-    width: 100%;
-}
+    .slider input[type="range"] {
+        width: 100%;
+        height: 20px;
+    }
 
-#observations3 div {
-    width: 100%;
-}
+    .slider label {
+        margin-top: 0.5rem;
+        text-align: center;
+    }
 
+    .buttonTotal {
+        display: flex;
+        width: 100%;
+        height: 44px;
+        font-size: 16px;
+        position: relative;
+        padding: 10px 20px;
+        background-color: #98CB3B;
+        color: #FFFFFF;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        margin: 0.5rem auto;
+    }
+
+    .buttonTotal:hover {
+        background-color: #2C9AD1;
+        transform: scale(1.05);
+    }
+
+    .input-group {
+        width: 100%;
+        margin: 1rem 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        height: 44px;
+        padding: 8px;
+        font-size: 16px;
+        margin-bottom: 0.5rem;
+        border: 1px solid #98CB3B;
+        border-radius: 5px;
+    }
+
+    #observations3,
+    #observations4,
+    #observations5 {
+        width: 100%;
+    }
+
+    #observations3 div,
+    #observations4 div,
+    #observations5 div {
+        width: 100%;
+    }
+
+    #pendulumCanvas {
+        width: 100% !important;
+        height: 300px !important;
+        margin: 1rem 0;
+    }
+
+    .box-question {
+        width: 100%;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #hint,
+    #pendulumHint,
+    #result,
+    #pendulumResult {
+        width: 100%;
+        text-align: center;
+        margin: 0.5rem 0;
+    }
 }
 
 /* ---------------------------------------------------- Tabs -------------------------------------------- */
