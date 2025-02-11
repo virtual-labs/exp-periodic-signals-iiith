@@ -40,7 +40,7 @@
       "source": "simulation/index.html",
       "label": "Simulation",
       "unit-type": "task",
-      "content-type": "simulation"
+      "content-type": "simulation" 
     },
     {
       "target": "posttest.html",
