@@ -139,7 +139,7 @@ function square(numCoeff) {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
     var layout1 = {
@@ -308,7 +308,7 @@ function canvasFourier(numCoeff) {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
     var layout1 = {
@@ -469,7 +469,7 @@ function squareCoeff() {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
   } else {
@@ -603,7 +603,7 @@ function triangleCoeff() {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
   } else {
@@ -734,7 +734,7 @@ function halfwaveCoeff() {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
   } else {
@@ -862,7 +862,7 @@ function fullwaveCoeff() {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
   } else {
@@ -993,7 +993,7 @@ function customCoeff() {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
   } else {
@@ -1102,7 +1102,7 @@ function square(numCoeff) {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
     var layout1 = {
@@ -1211,7 +1211,7 @@ function triangle(numCoeff) {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
     var layout1 = {
@@ -1314,7 +1314,7 @@ function halfwave(numCoeff) {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
     var layout1 = {
@@ -1413,7 +1413,7 @@ function fullwave(numCoeff) {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
     var layout1 = {
@@ -1527,7 +1527,7 @@ function custom(numCoeff) {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
     var layout1 = {
@@ -1680,7 +1680,7 @@ function generateAndPlotQ(ak, bk, xValues, mySignal, num, T) {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
     var layout1 = {
@@ -1772,7 +1772,7 @@ function squareQ(numCoeff) {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
     var layout1 = {
@@ -1867,7 +1867,7 @@ function triangleQ(numCoeff) {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
     var layout1 = {
@@ -1959,7 +1959,7 @@ function halfwaveQ(numCoeff) {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
     var layout1 = {
@@ -2051,7 +2051,7 @@ function fullwaveQ(numCoeff) {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
     var layout1 = {
@@ -2204,7 +2204,7 @@ function plotSqCoeff(signal, xValues) {
     };
   } else if (screen.width > 1600) {
     var update = {
-      width: 0.55 * screen.width,
+      width: 0.4 * screen.width,
       height: 400,
     };
   } else {

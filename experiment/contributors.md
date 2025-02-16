@@ -9,3 +9,4 @@
 | :---: | :---: | :---: | :---: | :---: |
 | 1 | Sasanka GRS | sasanka.grs@research.iiit.ac.in | IIIT Hyderabad | 2019112017 |
 | 2 | Ruchi Pandey | ruchi.pandey@research.iiit.ac.in | IIIT Hyderabad | 2018802008 |
+| 3 | Krish Pandya | krish.pandya@students.iiit.ac.in | IIIT Hyderabad | 2023102026 |

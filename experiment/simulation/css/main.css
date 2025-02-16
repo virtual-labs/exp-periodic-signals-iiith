@@ -35,9 +35,16 @@ html {
 @media (min-width: 1200px) {
 
 .max-width {
-    max-width: 1500px;
-    width: 80%;
-    padding: 0 40px;
+    max-width: 1500px; 
+    width: 100%;
+    /* padding: 0 40px; */
+}
+
+
+.box-question {
+    box-sizing: border-box;
+    overflow-x: visible;
+    margin-right: 1.5rem; /* adjust this value as needed */
 }
 
 section .title {
@@ -463,6 +470,7 @@ section .title {
     }
 
     .box-question {
+   
         width: 100%;
         padding: 1rem;
         margin-bottom: 1rem;
