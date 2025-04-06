@@ -14,7 +14,7 @@
         "b": "Incorrect. This describes an aperiodic signal",
         "c": "Incorrect. Periodic signals can contain any waveform that repeats",
         "d": "Incorrect. This describes a finite duration signal"
-      },
+      }, 
       "correctAnswer": "a",
       "difficulty": "beginner"
     },
