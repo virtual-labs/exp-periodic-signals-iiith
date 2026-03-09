@@ -226,7 +226,7 @@ const canvas = document.getElementById("canvas");
         });
 
 function lockCanvas() {
-    
+
     N = signalData.length;
 
     const dftResult = calculateDFT(yData);
@@ -905,15 +905,15 @@ function customCoeff() {
         (Math.sin(k * w0 * Math.PI) / (1 - k * w0) +
           Math.sin(k * w0 * Math.PI) / (1 + k * w0) +
           2 *
-            ((Math.cos(Math.PI * k * w0) - Math.cos(2 * Math.PI * k * w0)) /
-              (k * w0)) +
+          ((Math.cos(Math.PI * k * w0) - Math.cos(2 * Math.PI * k * w0)) /
+            (k * w0)) +
           2 *
-            ((Math.cos(3 * Math.PI * k * w0) - Math.cos(2 * Math.PI * k * w0)) /
-              (k * w0)) -
+          ((Math.cos(3 * Math.PI * k * w0) - Math.cos(2 * Math.PI * k * w0)) /
+            (k * w0)) -
           ((Math.sin(4 * Math.PI * k * w0) + Math.sin(3 * Math.PI * k * w0)) /
             (1 - k * w0) +
             (Math.sin(4 * Math.PI * k * w0) + Math.sin(3 * Math.PI * k * w0)) /
-              (1 + k * w0)));
+            (1 + k * w0)));
     }
   }
 
@@ -1016,9 +1016,8 @@ function customCoeff() {
 // ------------------------------------- Fourier Series of known signals - slider ----------------------------------------------------
 
 function callFourier() {
-  fourier(1);
-  // Set the slider value to 1
-  document.getElementById("myRange").value = 1;
+  var val = document.getElementById("myRange").value;
+  fourier(val);
 }
 
 function fourier(numCoeff) {
@@ -1465,17 +1464,17 @@ function custom(numCoeff) {
           (Math.sin(k * w0 * Math.PI) / (1 - k * w0) +
             Math.sin(k * w0 * Math.PI) / (1 + k * w0) +
             2 *
-              ((Math.cos(Math.PI * k * w0) - Math.cos(2 * Math.PI * k * w0)) /
-                (k * w0)) +
+            ((Math.cos(Math.PI * k * w0) - Math.cos(2 * Math.PI * k * w0)) /
+              (k * w0)) +
             2 *
-              ((Math.cos(3 * Math.PI * k * w0) -
-                Math.cos(2 * Math.PI * k * w0)) /
-                (k * w0)) -
+            ((Math.cos(3 * Math.PI * k * w0) -
+              Math.cos(2 * Math.PI * k * w0)) /
+              (k * w0)) -
             ((Math.sin(4 * Math.PI * k * w0) + Math.sin(3 * Math.PI * k * w0)) /
               (1 - k * w0) +
               (Math.sin(4 * Math.PI * k * w0) +
                 Math.sin(3 * Math.PI * k * w0)) /
-                (1 + k * w0)));
+              (1 + k * w0)));
         sigValues[i] = sigValues[i] + value * Math.sin(k * w0 * xValues[i]);
       }
     }
@@ -1608,8 +1607,8 @@ function quantize(value) {
 }
 
 function callQuant() {
-  quant(1);
-  document.getElementById("sqSlider").value = 1;
+  var val = document.getElementById("sqSlider").value;
+  quant(val);
 }
 
 function quant(numCoeff) {
@@ -2150,9 +2149,9 @@ function calculateSquareCoefficient_bk(x, T, kMax, t) {
 function plotSqCoeff(signal, xValues) {
   // Calculate Haar wavelet coefficients
   const haarCoefficients = haarWaveletTransform(signal);
-  
+
   // Create array for coefficient indices
-  const coeffIndices = Array.from({length: haarCoefficients.length}, (_, i) => i);
+  const coeffIndices = Array.from({ length: haarCoefficients.length }, (_, i) => i);
 
   var trace1 = {
     x: xValues,
@@ -2165,7 +2164,7 @@ function plotSqCoeff(signal, xValues) {
   var trace2 = {
     x: coeffIndices,
     y: haarCoefficients,
-    type: "scatter", 
+    type: "scatter",
     mode: "markers",
     name: "Haar Coefficients"
   };
@@ -2177,7 +2176,7 @@ function plotSqCoeff(signal, xValues) {
       title: "Time (s)",
     },
     yaxis: {
-      title: "Magnitude", 
+      title: "Magnitude",
     },
   };
 
@@ -2403,6 +2402,12 @@ var gravityfactor = 0.33;
 
 
 function quasi() {
+  document.getElementById("showAnswerButton").style.display = "none";
+  document.getElementById("showPendulumAnswerButton").style.display = "none";
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("pendulumResult").innerHTML = "";
+  attemptCount = 0;
+
   var chosen = document.getElementById("dropDownQuasi").value;
   var choice = parseInt(chosen);
 
@@ -2418,7 +2423,7 @@ function quasi() {
     document.getElementById("pendulumstuff").style.display = "none";
     Plotly.purge("figure10");
     // document.getElementById("convolveButton").innerText = "Convolve";
-    if(isConvolutionOn){
+    if (isConvolutionOn) {
       toggleConvolution();
     }
 
@@ -2470,7 +2475,7 @@ function quasi() {
     document.getElementById("ecgstuff").style.display = "none";
     document.getElementById("pendulumstuff").style.display = "block";
     Plotly.purge("figure10");
-    if(isConvolutionOn){
+    if (isConvolutionOn) {
       togglePendulumConvolution();
     }
     // document.getElementById("convolvePendulumButton").innerText = "Convolve Theta1";
@@ -2505,7 +2510,7 @@ function quasi() {
       parseFloat(document.getElementById("length2SliderValue").value)
     );
     g_refrence = 9.81;
-    g = gmultiplier*g_refrence;
+    g = gmultiplier * g_refrence;
     console.log(g);
     length1 = l1multiplier;
     length2 = l2multiplier;
@@ -2532,18 +2537,18 @@ function updatePendulum() {
     (g * (Math.sin(theta2) * Math.cos(theta1 - theta2) - Math.sin(theta1)) -
       omega2 ** 2 * length2 * Math.sin(theta1 - theta2) -
       omega1 ** 2 *
-        length1 *
-        Math.sin(theta1 - theta2) *
-        Math.cos(theta1 - theta2)) /
+      length1 *
+      Math.sin(theta1 - theta2) *
+      Math.cos(theta1 - theta2)) /
     denom1;
   const deltaOmega2 =
     (g *
       (2 * Math.sin(theta1 - theta2) * Math.cos(theta1 - theta2) -
         Math.sin(theta2)) +
       omega1 ** 2 *
-        length1 *
-        (Math.sin(theta1 - theta2) * Math.cos(theta1 - theta2) -
-          Math.sin(theta1)) +
+      length1 *
+      (Math.sin(theta1 - theta2) * Math.cos(theta1 - theta2) -
+        Math.sin(theta1)) +
       omega2 ** 2 * length2 * Math.sin(theta1 - theta2)) /
     denom2;
 
@@ -2561,10 +2566,10 @@ function updatePendulum() {
   if ((previousTheta1 > 0 && theta1 < 0) || (previousTheta1 < 0 && theta1 > 0)) {
     zeroCrossings++;
   }
-  if((previousTheta2 > 0 && theta2 < 0) || (previousTheta2 < 0 && theta2 > 0)) {
+  if ((previousTheta2 > 0 && theta2 < 0) || (previousTheta2 < 0 && theta2 > 0)) {
     zeroCrossingsTheta2++;
   }
-  
+
   previousTheta1 = theta1;
   previousTheta2 = theta2;
 
@@ -2655,7 +2660,7 @@ function checkPendulumGuess() {
   for (let i = 1; i < peaks.length; i++) {
     const interval = peaks[i] - peaks[i - 1];
     const intervalInSeconds = interval * timeStep / 10; // as it's timestep by 10
-    
+
     peakIntervals.push(intervalInSeconds);
   }
 
@@ -2665,7 +2670,7 @@ function checkPendulumGuess() {
     document.getElementById(
       "pendulumResult"
     ).innerHTML = `<h3>Not enough valid peak intervals detected to estimate time period.</h3>`;
-    return; 
+    return;
   }
 
   const averageInterval =
@@ -2691,7 +2696,36 @@ function checkPendulumGuess() {
 
 function showPendulumAnswer() {
   const resultDiv = document.getElementById("pendulumResult");
-  const averageInterval = window.convolvedTheta1Data.reduce((a, b) => a + b, 0) / window.convolvedTheta1Data.length;
+  const convolvedData = window.convolvedTheta1Data;
+  if (!convolvedData) {
+    resultDiv.innerHTML = `<h3>Please convolve the signal first before seeing the answer.</h3>`;
+    return;
+  }
+  const threshold = Math.max(...convolvedData) * 0.2;
+  const peaks = [];
+  for (let i = 1; i < convolvedData.length - 1; i++) {
+    if (
+      convolvedData[i] > convolvedData[i - 1] &&
+      convolvedData[i] > convolvedData[i + 1] &&
+      convolvedData[i] > threshold
+    ) {
+      peaks.push(i);
+    }
+  }
+
+  const peakIntervals = [];
+  for (let i = 1; i < peaks.length; i++) {
+    const interval = peaks[i] - peaks[i - 1];
+    const intervalInSeconds = interval * timeStep / 10;
+    peakIntervals.push(intervalInSeconds);
+  }
+
+  if (peakIntervals.length < 2) {
+    resultDiv.innerHTML = `<h3>Not enough peaks to determine the answer.</h3>`;
+    return;
+  }
+
+  const averageInterval = peakIntervals.reduce((a, b) => a + b, 0) / peakIntervals.length;
   resultDiv.innerHTML = `<h3>The estimated time period is approximately ${averageInterval.toFixed(
     2
   )} seconds.</h3>`;
@@ -2729,42 +2763,42 @@ function estimateTimePeriod() {
 
 
 function drawPendulum(x1, y1, x2, y2) {
-    ctx.clearRect(0, 0, kanvas.width, kanvas.height);
+  ctx.clearRect(0, 0, kanvas.width, kanvas.height);
+  ctx.beginPath();
+  ctx.moveTo(kanvas.width / 2, 0); // Hang from the top center
+  ctx.lineTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.stroke();
+
+  // Draw blobs at the pendulum bobs
+  ctx.beginPath();
+  ctx.arc(x1, y1, 10, 0, 2 * Math.PI); // Blob for first pendulum bob
+  ctx.fillStyle = "red";
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(x2, y2, 10, 0, 2 * Math.PI); // Blob for second pendulum bob
+  ctx.fillStyle = "green";
+  ctx.fill();
+
+  // Draw trace
+  trace1.push({ x: x1, y: y1 });
+  trace2.push({ x: x2, y: y2 });
+  if (trace1.length > traceLength) {
+    trace1.shift();
+    trace2.shift();
+  }
+  ctx.strokeStyle = "blue";
+  for (let i = 1; i < trace1.length; i++) {
     ctx.beginPath();
-    ctx.moveTo(kanvas.width / 2, 0); // Hang from the top center
-    ctx.lineTo(x1, y1);
-    ctx.lineTo(x2, y2);
+    ctx.moveTo(trace1[i - 1].x, trace1[i - 1].y);
+    ctx.lineTo(trace1[i].x, trace1[i].y);
     ctx.stroke();
-
-    // Draw blobs at the pendulum bobs
     ctx.beginPath();
-    ctx.arc(x1, y1, 10, 0, 2 * Math.PI); // Blob for first pendulum bob
-    ctx.fillStyle = "red";
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(x2, y2, 10, 0, 2 * Math.PI); // Blob for second pendulum bob
-    ctx.fillStyle = "green";
-    ctx.fill();
-
-    // Draw trace
-    trace1.push({ x: x1, y: y1 });
-    trace2.push({ x: x2, y: y2 });
-    if (trace1.length > traceLength) {
-        trace1.shift();
-        trace2.shift();
-    }
-    ctx.strokeStyle = "blue";
-    for (let i = 1; i < trace1.length; i++) {
-        ctx.beginPath();
-        ctx.moveTo(trace1[i - 1].x, trace1[i - 1].y);
-        ctx.lineTo(trace1[i].x, trace1[i].y);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(trace2[i - 1].x, trace2[i - 1].y);
-        ctx.lineTo(trace2[i].x, trace2[i].y);
-        ctx.stroke();
-    }
+    ctx.moveTo(trace2[i - 1].x, trace2[i - 1].y);
+    ctx.lineTo(trace2[i].x, trace2[i].y);
+    ctx.stroke();
+  }
 }
 
 function generateECGSignal() {
@@ -2814,9 +2848,9 @@ function generateECGSignal() {
         0.2 *
         Math.sin(
           2 *
-            Math.PI *
-            (1 / tWaveDuration) *
-            ((t % rrInterval) - pWaveDuration - qrsDuration)
+          Math.PI *
+          (1 / tWaveDuration) *
+          ((t % rrInterval) - pWaveDuration - qrsDuration)
         );
     }
 
@@ -2993,7 +3027,7 @@ function checkGuess() {
     attemptCount++;
 
     resultDiv.innerHTML = `<h3>Incorrect. Try again<h3>`;
-    if(attemptCount>=5){
+    if (attemptCount >= 5) {
       document.getElementById("showAnswerButton").style.display = "block";
     }
   }
@@ -3007,54 +3041,50 @@ function showAnswer() {
 }
 
 
-function drawQuasiPendulum()
-{
-    var trace1 = {
-        x: toime,
-        y: t1acc,
-        type: 'scatter',
-        mode: 'line'
+function drawQuasiPendulum() {
+  var trace1 = {
+    x: toime,
+    y: t1acc,
+    type: 'scatter',
+    mode: 'line'
+  };
+
+  var layout1 = {
+    title: 'Angle of Pendulum 1',
+    showlegend: false,
+    xaxis: {
+      title: 'Time (s)'
+    },
+    yaxis: {
+      title: 'theta1'
+    }
+  };
+
+  var data1 = [trace1];
+
+  var config = { responsive: true }
+
+  if (screen.width < 769) {
+    var update = {
+      width: 0.8 * screen.width,
+      height: 400
     };
-
-    var layout1 = {
-        title: 'Angle of Pendulum 1',
-        showlegend: false,
-        xaxis: {
-            title: 'Time (s)'
-        },
-        yaxis: {
-            title: 'theta1'
-        }
+  }
+  else if (screen.width > 1600) {
+    var update = {
+      width: 0.55 * screen.width,
+      height: 400
     };
-      
-    var data1 = [trace1];
+  }
+  else {
+    var update = {
+      width: 500,
+      height: 500
+    };
+  }
 
-    var config = {responsive: true}
-    
-    if(screen.width < 769)
-    {
-        var update = {
-            width: 0.8*screen.width,
-            height: 400
-        };
-    }
-    else if(screen.width > 1600)
-    {
-        var update = {
-            width: 0.55*screen.width,
-            height: 400
-        };
-    }
-    else
-    {
-        var update = {
-            width: 500,
-            height: 500
-        };
-    }
-
-    Plotly.newPlot('figure9', data1, layout1, config);
-    Plotly.relayout('figure9', update);
+  Plotly.newPlot('figure9', data1, layout1, config);
+  Plotly.relayout('figure9', update);
 }
 
 // -------------------------------- Toggle stop button ------------------------------------------------------------
@@ -3082,15 +3112,15 @@ function stopVisible() {
 
 
 var slider = document.getElementById("myRange");
-slider.oninput = function() {
-    document.getElementById("rangeValue").innerHTML = this.value;
-    fourier(this.value);
+slider.oninput = function () {
+  document.getElementById("rangeValue").innerHTML = this.value;
+  fourier(this.value);
 };
 
 var squareSlider = document.getElementById("sqSlider");
-squareSlider.oninput = function() {
-    document.getElementById("sqSliderValue").innerHTML = this.value;
-    quant(this.value);
+squareSlider.oninput = function () {
+  document.getElementById("sqSliderValue").innerHTML = this.value;
+  quant(this.value);
 };
 
 /* ---------------------------- LinSpace -------------------------------------- */
