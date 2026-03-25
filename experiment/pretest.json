@@ -2,35 +2,69 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "What is a periodic signal?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "A signal that repeats itself exactly after a fixed time period",
+        "b": "A signal that never repeats",
+        "c": "A signal that only contains sine waves",
+        "d": "A signal that only exists for a finite time"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
-      },
+        "a": "Correct! A periodic signal is one that repeats its values at regular intervals or periods",
+        "b": "Incorrect. This describes an aperiodic signal",
+        "c": "Incorrect. Periodic signals can contain any waveform that repeats",
+        "d": "Incorrect. This describes a finite duration signal"
+      }, 
       "correctAnswer": "a",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "How is the fundamental frequency ($f_0$) of a periodic signal related to its period (T)?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "$f_0 = T$",
+        "b": "$f_0 = 2\\pi T$",
+        "c": "$f_0 = \\frac{1}{T}$",
+        "d": "$f_0 = \\frac{T}{2\\pi}$"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect. Frequency and period are reciprocals of each other",
+        "b": "Incorrect. This is not the correct relationship",
+        "c": "Correct! The fundamental frequency is the reciprocal of the period",
+        "d": "Incorrect. This would give incorrect units"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is a quasi-periodic signal?",
+      "answers": {
+        "a": "A signal that never repeats",
+        "b": "A signal that appears periodic but has slightly varying periods",
+        "c": "A signal that repeats exactly",
+        "d": "A signal that only exists for one period"
+      },
+      "explanations": {
+        "a": "Incorrect. While quasi-periodic signals don't repeat exactly, they do show regular patterns",
+        "b": "Correct! Quasi-periodic signals show periodic-like behavior but with variations in the period",
+        "c": "Incorrect. This describes a purely periodic signal",
+        "d": "Incorrect. Quasi-periodic signals continue indefinitely"
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Which of these is NOT a basic periodic waveform?",
+      "answers": {
+        "a": "Square wave",
+        "b": "Triangular wave",
+        "c": "Gaussian pulse",
+        "d": "Full-wave rectified sine"
+      },
+      "explanations": {
+        "a": "Incorrect. Square wave is a fundamental periodic waveform",
+        "b": "Incorrect. Triangular wave is a basic periodic waveform",
+        "c": "Correct! A Gaussian pulse is not periodic - it's a single pulse",
+        "d": "Incorrect. Full-wave rectified sine is a periodic waveform"
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
