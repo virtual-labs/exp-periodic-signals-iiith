@@ -51,23 +51,6 @@
       },
       "correctAnswer": "b",
       "difficulty": "intermediate"
-    },
-    {
-      "question": "What happens when you increase the number of terms in the square wave series reconstruction?",
-      "answers": {
-        "a": "Signal becomes smoother",
-        "b": "Gibbs phenomenon becomes more pronounced",
-        "c": "Approximation becomes worse",
-        "d": "Signal frequency changes"
-      },
-      "explanations": {
-        "a": "Incorrect. The reconstruction shows more ringing near discontinuities",
-        "b": "Correct! More terms lead to more pronounced oscillations near discontinuities",
-        "c": "Incorrect. The approximation generally improves",
-        "d": "Incorrect. The fundamental frequency remains unchanged"
-      },
-      "correctAnswer": "b",
-      "difficulty": "advanced"
     }
   ]
 }
