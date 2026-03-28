@@ -1,0 +1,56 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "For a square wave with amplitude 1 and period 2π, what is the first non-zero Fourier coefficient?",
+      "answers": {
+        "a": "$\\frac{4}{\\pi}$",
+        "b": "$\\frac{2}{\\pi}$",
+        "c": "$\\frac{1}{\\pi}$",
+        "d": "$2$"
+      },
+      "explanations": {
+        "a": "Correct! For a square wave, $a_1 = \\frac{4}{\\pi}$ is the first non-zero coefficient",
+        "b": "Incorrect. This is half of the correct value",
+        "c": "Incorrect. The coefficient is larger due to the unit amplitude",
+        "d": "Incorrect. Fourier coefficients for square wave are not integers"
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "How many terms in a Fourier series are needed for perfect reconstruction of a signal?",
+      "answers": {
+        "a": "20 terms are sufficient",
+        "b": "50 terms give perfect reconstruction",
+        "c": "Infinite terms theoretically",
+        "d": "Depends on the signal frequency"
+      },
+      "explanations": {
+        "a": "Incorrect. 20 terms give approximation but not perfect reconstruction",
+        "b": "Incorrect. No finite number of terms gives perfect reconstruction",
+        "c": "Correct! Perfect reconstruction requires infinite terms in the series",
+        "d": "Incorrect. The number of terms needed is independent of frequency"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which statement about ECG signals is correct?",
+      "answers": {
+        "a": "They are perfectly periodic",
+        "b": "They are quasi-periodic",
+        "c": "They are aperiodic",
+        "d": "They have constant frequency"
+      },
+      "explanations": {
+        "a": "Incorrect. Heart rate varies slightly between beats",
+        "b": "Correct! ECG signals show near-periodic behavior with slight variations",
+        "c": "Incorrect. ECG signals do show regular patterns",
+        "d": "Incorrect. The frequency varies with heart rate"
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    }
+  ]
+}
